@@ -1,0 +1,221 @@
+date,district,rainfall_10day_mm,rainfall_1month_avg_mm,upstream_catchment_area,upstream_rainfall_10day_mm,upstream_rainfall_1month_avg_mm
+2023-01-01,Colombo,10.8,33.4,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),24.5,67.2
+2023-01-01,Ratnapura,11.3,30.9,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),27.4,82.3
+2023-01-11,Colombo,17.0,46.6,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),24.7,68.0
+2023-01-11,Ratnapura,6.0,16.6,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),35.6,100.9
+2023-01-21,Colombo,3.9,11.9,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),8.2,24.1
+2023-01-21,Ratnapura,20.2,64.9,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),31.6,90.8
+2023-01-31,Colombo,13.5,38.9,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),24.5,78.1
+2023-01-31,Ratnapura,22.0,67.8,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),43.5,127.2
+2023-02-10,Colombo,10.3,28.2,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),20.4,57.6
+2023-02-10,Ratnapura,14.8,42.7,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),21.7,66.2
+2023-02-20,Colombo,8.1,25.7,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),22.0,68.6
+2023-02-20,Ratnapura,18.3,55.2,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),43.4,140.0
+2023-03-02,Colombo,11.5,37.8,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),16.3,45.2
+2023-03-02,Ratnapura,7.5,20.9,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),35.8,107.2
+2023-03-12,Colombo,18.9,59.7,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),26.0,79.1
+2023-03-12,Ratnapura,22.4,69.8,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),27.2,83.1
+2023-03-22,Colombo,7.4,23.7,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),16.9,55.2
+2023-03-22,Ratnapura,7.5,20.5,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),30.4,94.9
+2023-04-01,Colombo,2.9,9.3,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),3.0,8.6
+2023-04-01,Ratnapura,9.9,26.9,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),37.9,112.8
+2023-04-11,Colombo,13.2,36.1,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),24.7,78.1
+2023-04-11,Ratnapura,21.7,63.7,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),37.5,120.9
+2023-04-21,Colombo,16.6,50.3,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),26.3,84.9
+2023-04-21,Ratnapura,24.1,69.1,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),16.7,49.3
+2023-05-01,Colombo,12.9,42.2,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),42.8,119.4
+2023-05-01,Ratnapura,31.1,88.3,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),56.8,169.9
+2023-05-11,Colombo,16.0,43.2,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),31.0,91.5
+2023-05-11,Ratnapura,22.5,73.6,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),57.0,177.5
+2023-05-21,Colombo,12.6,39.1,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),31.7,86.6
+2023-05-21,Ratnapura,38.9,125.4,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),43.9,139.5
+2023-05-31,Colombo,15.4,42.5,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),37.4,115.2
+2023-05-31,Ratnapura,31.3,88.4,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),52.3,146.3
+2023-06-10,Colombo,18.4,49.7,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),36.1,100.7
+2023-06-10,Ratnapura,34.3,93.1,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),57.0,183.8
+2023-06-20,Colombo,17.1,48.8,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),31.6,91.9
+2023-06-20,Ratnapura,26.4,84.7,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),53.0,174.7
+2023-06-30,Colombo,13.8,38.0,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),34.5,95.3
+2023-06-30,Ratnapura,25.7,82.2,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),55.3,154.7
+2023-07-10,Colombo,23.7,71.5,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),27.3,76.1
+2023-07-10,Ratnapura,16.4,49.5,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),30.3,99.6
+2023-07-20,Colombo,16.8,48.0,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),15.7,45.8
+2023-07-20,Ratnapura,24.2,73.1,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),46.8,148.2
+2023-07-30,Colombo,10.4,33.1,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),25.0,82.3
+2023-07-30,Ratnapura,25.8,82.3,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),20.6,64.8
+2023-08-09,Colombo,12.8,37.3,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),29.4,79.9
+2023-08-09,Ratnapura,23.7,67.7,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),34.4,107.2
+2023-08-19,Colombo,17.0,55.5,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),21.2,69.8
+2023-08-19,Ratnapura,24.6,69.7,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),31.0,87.9
+2023-08-29,Colombo,13.1,40.3,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),26.0,84.2
+2023-08-29,Ratnapura,22.4,69.3,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),24.0,76.3
+2023-09-08,Colombo,18.1,58.8,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),28.1,89.1
+2023-09-08,Ratnapura,18.0,50.5,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),21.0,66.6
+2023-09-18,Colombo,7.7,25.3,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),30.1,88.4
+2023-09-18,Ratnapura,3.8,11.9,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),39.9,111.8
+2023-09-28,Colombo,13.9,45.1,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),24.8,79.0
+2023-09-28,Ratnapura,26.2,86.2,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),47.4,146.7
+2023-10-08,Colombo,15.6,43.3,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),39.9,108.1
+2023-10-08,Ratnapura,39.1,117.9,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),50.9,165.9
+2023-10-18,Colombo,10.3,32.9,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),37.0,104.6
+2023-10-18,Ratnapura,28.7,81.6,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),57.8,176.4
+2023-10-28,Colombo,18.9,52.5,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),41.0,133.1
+2023-10-28,Ratnapura,24.0,73.2,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),56.8,184.2
+2023-11-07,Colombo,9.8,29.4,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),38.5,116.2
+2023-11-07,Ratnapura,27.4,81.2,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),49.6,139.4
+2023-11-17,Colombo,27.8,77.9,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),37.4,111.6
+2023-11-17,Ratnapura,27.4,79.3,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),38.4,115.6
+2023-11-27,Colombo,11.3,31.2,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),28.4,86.2
+2023-11-27,Ratnapura,28.9,91.4,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),57.6,173.1
+2023-12-07,Colombo,11.7,38.0,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),28.3,83.9
+2023-12-07,Ratnapura,22.3,67.1,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),41.3,128.7
+2023-12-17,Colombo,13.5,40.3,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),35.1,114.6
+2023-12-17,Ratnapura,24.2,79.0,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),31.2,89.1
+2023-12-27,Colombo,8.5,27.2,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),25.8,71.8
+2023-12-27,Ratnapura,34.4,94.4,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),58.7,167.0
+2024-01-06,Colombo,18.4,58.3,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),27.7,89.7
+2024-01-06,Ratnapura,24.5,75.9,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),45.3,126.2
+2024-01-16,Colombo,21.3,60.3,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),13.3,43.5
+2024-01-16,Ratnapura,11.3,37.2,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),35.7,114.2
+2024-01-26,Colombo,14.7,44.2,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),28.1,81.6
+2024-01-26,Ratnapura,20.1,63.0,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),39.5,107.1
+2024-02-05,Colombo,7.1,19.2,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),17.9,51.9
+2024-02-05,Ratnapura,11.9,32.6,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),21.9,72.1
+2024-02-15,Colombo,15.1,41.7,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),6.2,17.7
+2024-02-15,Ratnapura,30.1,86.2,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),38.9,108.1
+2024-02-25,Colombo,2.7,8.6,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),25.3,72.2
+2024-02-25,Ratnapura,27.5,83.7,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),50.7,158.2
+2024-03-06,Colombo,13.4,41.7,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),23.2,68.6
+2024-03-06,Ratnapura,33.3,102.6,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),45.4,144.4
+2024-03-16,Colombo,20.2,55.3,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),30.3,97.5
+2024-03-16,Ratnapura,11.7,35.5,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),31.9,103.9
+2024-03-26,Colombo,11.7,35.3,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),24.8,70.5
+2024-03-26,Ratnapura,21.3,58.2,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),35.8,101.0
+2024-04-05,Colombo,10.4,32.8,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),26.1,75.0
+2024-04-05,Ratnapura,13.5,39.3,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),30.0,81.3
+2024-04-15,Colombo,12.0,37.7,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),22.7,68.8
+2024-04-15,Ratnapura,21.0,68.5,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),41.9,115.8
+2024-04-25,Colombo,14.1,42.3,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),16.1,51.5
+2024-04-25,Ratnapura,11.3,35.2,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),36.1,118.7
+2024-05-05,Colombo,14.2,44.4,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),43.0,132.5
+2024-05-05,Ratnapura,23.3,63.7,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),53.3,148.1
+2024-05-15,Colombo,26.3,75.0,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),41.1,115.0
+2024-05-15,Ratnapura,40.7,131.1,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),62.6,194.2
+2024-05-25,Colombo,18.5,53.2,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),38.9,115.8
+2024-05-25,Ratnapura,33.1,94.6,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),59.8,196.0
+2024-06-04,Colombo,25.2,71.7,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),35.0,114.8
+2024-06-04,Ratnapura,26.3,71.0,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),57.4,168.1
+2024-06-14,Colombo,13.6,38.4,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),34.1,102.4
+2024-06-14,Ratnapura,34.4,94.7,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),52.1,153.2
+2024-06-24,Colombo,20.2,58.2,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),35.2,100.0
+2024-06-24,Ratnapura,21.2,66.8,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),42.2,130.6
+2024-07-04,Colombo,9.9,29.0,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),8.3,24.0
+2024-07-04,Ratnapura,22.1,69.3,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),32.1,99.1
+2024-07-14,Colombo,20.8,67.3,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),27.5,84.6
+2024-07-14,Ratnapura,16.7,46.5,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),14.5,43.7
+2024-07-24,Colombo,2.9,9.2,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),18.5,59.1
+2024-07-24,Ratnapura,4.9,15.2,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),17.8,55.5
+2024-08-03,Colombo,12.2,33.9,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),23.2,67.7
+2024-08-03,Ratnapura,28.8,87.4,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),45.2,139.1
+2024-08-13,Colombo,6.9,20.7,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),13.3,35.9
+2024-08-13,Ratnapura,21.5,64.5,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),18.0,54.4
+2024-08-23,Colombo,11.0,34.6,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),19.3,55.0
+2024-08-23,Ratnapura,23.0,72.2,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),36.1,101.9
+2024-09-02,Colombo,11.2,33.6,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),4.2,12.3
+2024-09-02,Ratnapura,7.2,22.8,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),30.0,92.1
+2024-09-12,Colombo,10.8,30.1,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),19.3,55.1
+2024-09-12,Ratnapura,17.7,53.8,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),23.6,63.9
+2024-09-22,Colombo,15.5,48.1,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),24.5,76.3
+2024-09-22,Ratnapura,15.3,46.1,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),23.9,71.2
+2024-10-02,Colombo,16.8,54.4,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),34.5,97.3
+2024-10-02,Ratnapura,45.5,123.3,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),52.3,155.6
+2024-10-12,Colombo,24.6,73.1,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),21.2,60.7
+2024-10-12,Ratnapura,33.1,93.6,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),72.8,222.0
+2024-10-22,Colombo,22.9,74.9,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),41.6,115.6
+2024-10-22,Ratnapura,32.5,105.0,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),41.5,129.6
+2024-11-01,Colombo,20.4,61.0,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),48.3,131.1
+2024-11-01,Ratnapura,37.2,110.5,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),53.0,152.7
+2024-11-11,Colombo,22.0,63.6,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),39.9,127.8
+2024-11-11,Ratnapura,40.8,130.7,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),54.0,149.7
+2024-11-21,Colombo,26.0,84.3,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),32.2,92.5
+2024-11-21,Ratnapura,23.8,78.5,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),55.3,168.9
+2024-12-01,Colombo,15.9,45.6,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),38.7,105.6
+2024-12-01,Ratnapura,39.8,114.3,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),63.8,208.1
+2024-12-11,Colombo,19.2,57.7,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),39.5,111.1
+2024-12-11,Ratnapura,16.2,52.3,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),62.7,199.8
+2024-12-21,Colombo,12.0,39.2,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),22.2,67.3
+2024-12-21,Ratnapura,28.4,89.2,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),47.3,140.5
+2024-12-31,Colombo,19.3,55.4,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),25.5,69.6
+2024-12-31,Ratnapura,32.2,96.1,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),49.2,143.0
+2025-01-10,Colombo,9.7,31.9,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),30.8,88.0
+2025-01-10,Ratnapura,14.6,44.3,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),24.0,70.5
+2025-01-20,Colombo,13.4,37.9,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),25.3,82.1
+2025-01-20,Ratnapura,12.9,41.8,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),30.0,98.9
+2025-01-30,Colombo,9.5,26.7,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),21.9,60.3
+2025-01-30,Ratnapura,16.3,46.3,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),34.2,97.6
+2025-02-09,Colombo,2.9,9.1,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),13.3,39.2
+2025-02-09,Ratnapura,10.5,30.7,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),34.9,101.3
+2025-02-19,Colombo,15.6,51.2,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),24.6,68.3
+2025-02-19,Ratnapura,7.9,25.4,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),28.1,79.5
+2025-03-01,Colombo,11.5,33.8,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),26.2,77.7
+2025-03-01,Ratnapura,31.4,101.2,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),30.4,82.5
+2025-03-11,Colombo,19.4,62.8,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),25.8,77.0
+2025-03-11,Ratnapura,17.9,52.5,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),31.3,101.9
+2025-03-21,Colombo,16.3,53.5,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),11.9,33.9
+2025-03-21,Ratnapura,21.2,63.9,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),35.7,111.0
+2025-03-31,Colombo,19.2,59.3,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),20.1,63.5
+2025-03-31,Ratnapura,9.2,25.1,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),31.8,100.8
+2025-04-10,Colombo,13.2,40.8,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),36.0,103.8
+2025-04-10,Ratnapura,21.8,67.2,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),37.5,117.0
+2025-04-20,Colombo,13.4,40.4,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),23.6,72.0
+2025-04-20,Ratnapura,14.1,43.2,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),34.4,93.1
+2025-04-30,Colombo,10.3,33.7,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),27.7,85.5
+2025-04-30,Ratnapura,24.1,68.5,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),26.3,74.9
+2025-05-10,Colombo,26.5,76.4,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),34.3,93.1
+2025-05-10,Ratnapura,18.0,53.1,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),47.1,134.4
+2025-05-20,Colombo,13.8,39.1,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),20.5,55.8
+2025-05-20,Ratnapura,24.8,77.1,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),57.1,161.0
+2025-05-30,Colombo,21.5,64.6,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),25.4,71.7
+2025-05-30,Ratnapura,34.9,111.4,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),50.6,143.6
+2025-06-09,Colombo,20.6,59.3,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),45.5,148.8
+2025-06-09,Ratnapura,24.2,68.6,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),49.0,144.6
+2025-06-19,Colombo,13.3,37.1,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),19.6,57.5
+2025-06-19,Ratnapura,33.3,92.7,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),75.5,206.2
+2025-06-29,Colombo,23.7,76.8,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),38.2,123.4
+2025-06-29,Ratnapura,26.1,85.1,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),18.1,52.4
+2025-07-09,Colombo,16.4,51.6,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),36.5,99.2
+2025-07-09,Ratnapura,14.4,42.1,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),22.7,65.8
+2025-07-19,Colombo,12.2,35.0,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),22.1,64.3
+2025-07-19,Ratnapura,21.6,70.8,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),31.2,88.1
+2025-07-29,Colombo,6.5,20.8,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),29.1,86.1
+2025-07-29,Ratnapura,25.8,75.4,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),36.9,120.0
+2025-08-08,Colombo,13.6,44.0,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),27.7,75.3
+2025-08-08,Ratnapura,6.9,21.8,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),36.9,100.5
+2025-08-18,Colombo,13.7,44.6,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),22.6,64.5
+2025-08-18,Ratnapura,17.7,51.4,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),11.8,33.8
+2025-08-28,Colombo,18.4,52.6,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),21.2,66.4
+2025-08-28,Ratnapura,15.7,42.4,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),37.4,117.9
+2025-09-07,Colombo,17.9,58.5,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),18.9,51.3
+2025-09-07,Ratnapura,18.8,61.6,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),41.9,137.1
+2025-09-17,Colombo,9.2,27.2,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),23.9,71.6
+2025-09-17,Ratnapura,22.1,70.3,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),30.1,94.6
+2025-09-27,Colombo,15.6,47.8,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),12.9,37.4
+2025-09-27,Ratnapura,15.1,47.9,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),38.3,105.2
+2025-10-07,Colombo,21.8,62.1,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),45.3,124.1
+2025-10-07,Ratnapura,37.7,109.2,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),55.3,181.8
+2025-10-17,Colombo,29.8,85.2,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),25.2,69.3
+2025-10-17,Ratnapura,35.8,111.9,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),58.4,173.3
+2025-10-27,Colombo,19.7,60.5,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),41.2,127.9
+2025-10-27,Ratnapura,28.6,88.6,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),32.5,90.1
+2025-11-06,Colombo,21.4,65.1,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),30.8,90.1
+2025-11-06,Ratnapura,28.4,80.9,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),44.1,125.6
+2025-11-16,Colombo,24.9,75.9,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),47.0,136.1
+2025-11-16,Ratnapura,10.9,32.7,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),62.2,176.6
+2025-11-26,Colombo,21.7,71.5,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),26.8,74.0
+2025-11-26,Ratnapura,15.7,50.3,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),49.0,159.2
+2025-12-06,Colombo,23.1,64.0,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),37.0,104.1
+2025-12-06,Ratnapura,38.2,124.5,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),51.0,149.1
+2025-12-16,Colombo,22.7,64.8,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),30.5,96.6
+2025-12-16,Ratnapura,32.0,97.8,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),49.8,153.0
+2025-12-26,Colombo,20.1,56.0,Kelani River Upper Catchment (Nuwara Eliya/Kegalle hills),40.7,114.9
+2025-12-26,Ratnapura,28.5,88.1,Kalu River Upper Catchment (Central Highlands/Adam's Peak range),62.5,176.4
