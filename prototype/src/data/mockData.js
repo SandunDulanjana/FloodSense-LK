@@ -25,7 +25,7 @@ export const districts = [
       iou: 0.79,
     },
     m3: {
-      cropBreakdown: { paddy: 22, tea: 4, vegetables: 31, other: 43 },
+      cropBreakdown: { paddy: 38, tea: 14, other: 48 },
       damagePct: 41,
       livelihoodImpact: "High",
       affectedFarmers: 5400,
@@ -60,7 +60,7 @@ export const districts = [
       iou: 0.78,
     },
     m3: {
-      cropBreakdown: { paddy: 45, tea: 0, vegetables: 25, other: 30 },
+      cropBreakdown: { paddy: 62, tea: 0, other: 38 },
       damagePct: 28,
       livelihoodImpact: "Medium",
       affectedFarmers: 3800,
@@ -95,7 +95,7 @@ export const districts = [
       iou: 0.81,
     },
     m3: {
-      cropBreakdown: { paddy: 35, tea: 18, vegetables: 17, other: 30 },
+      cropBreakdown: { paddy: 48, tea: 24, other: 28 },
       damagePct: 45,
       livelihoodImpact: "High",
       affectedFarmers: 6200,
@@ -130,7 +130,7 @@ export const districts = [
       iou: 0.73,
     },
     m3: {
-      cropBreakdown: { paddy: 15, tea: 52, vegetables: 21, other: 12 },
+      cropBreakdown: { paddy: 26, tea: 58, other: 16 },
       damagePct: 18,
       livelihoodImpact: "Low",
       affectedFarmers: 1650,
@@ -165,7 +165,7 @@ export const districts = [
       iou: 0.75,
     },
     m3: {
-      cropBreakdown: { paddy: 40, tea: 15, vegetables: 30, other: 15 },
+      cropBreakdown: { paddy: 58, tea: 20, other: 22 },
       damagePct: 26,
       livelihoodImpact: "Medium",
       affectedFarmers: 2400,
@@ -200,7 +200,7 @@ export const districts = [
       iou: 0.71,
     },
     m3: {
-      cropBreakdown: { paddy: 2, tea: 64, vegetables: 28, other: 6 },
+      cropBreakdown: { paddy: 6, tea: 82, other: 12 },
       damagePct: 14,
       livelihoodImpact: "Low",
       affectedFarmers: 1200,
@@ -235,7 +235,7 @@ export const districts = [
       iou: 0.82,
     },
     m3: {
-      cropBreakdown: { paddy: 48, tea: 22, vegetables: 10, other: 20 },
+      cropBreakdown: { paddy: 56, tea: 24, other: 20 },
       damagePct: 48,
       livelihoodImpact: "High",
       affectedFarmers: 6900,
@@ -270,7 +270,7 @@ export const districts = [
       iou: 0.8,
     },
     m3: {
-      cropBreakdown: { paddy: 52, tea: 18, vegetables: 12, other: 18 },
+      cropBreakdown: { paddy: 62, tea: 20, other: 18 },
       damagePct: 52,
       livelihoodImpact: "Severe",
       affectedFarmers: 7400,
@@ -305,7 +305,7 @@ export const districts = [
       iou: 0.77,
     },
     m3: {
-      cropBreakdown: { paddy: 58, tea: 0, vegetables: 22, other: 20 },
+      cropBreakdown: { paddy: 74, tea: 0, other: 26 },
       damagePct: 32,
       livelihoodImpact: "Medium",
       affectedFarmers: 3500,
@@ -340,7 +340,7 @@ export const districts = [
       iou: 0.7,
     },
     m3: {
-      cropBreakdown: { paddy: 28, tea: 0, vegetables: 42, other: 30 },
+      cropBreakdown: { paddy: 52, tea: 0, other: 48 },
       damagePct: 12,
       livelihoodImpact: "Low",
       affectedFarmers: 950,
@@ -375,7 +375,7 @@ export const districts = [
       iou: 0.74,
     },
     m3: {
-      cropBreakdown: { paddy: 65, tea: 0, vegetables: 15, other: 20 },
+      cropBreakdown: { paddy: 76, tea: 0, other: 24 },
       damagePct: 29,
       livelihoodImpact: "Medium",
       affectedFarmers: 2900,
@@ -410,7 +410,7 @@ export const districts = [
       iou: 0.72,
     },
     m3: {
-      cropBreakdown: { paddy: 55, tea: 0, vegetables: 18, other: 27 },
+      cropBreakdown: { paddy: 68, tea: 0, other: 32 },
       damagePct: 19,
       livelihoodImpact: "Low",
       affectedFarmers: 1750,
@@ -445,7 +445,7 @@ export const districts = [
       iou: 0.72,
     },
     m3: {
-      cropBreakdown: { paddy: 60, tea: 0, vegetables: 22, other: 18 },
+      cropBreakdown: { paddy: 75, tea: 0, other: 25 },
       damagePct: 16,
       livelihoodImpact: "Low",
       affectedFarmers: 1400,
@@ -480,7 +480,7 @@ export const districts = [
       iou: 0.73,
     },
     m3: {
-      cropBreakdown: { paddy: 62, tea: 0, vegetables: 16, other: 22 },
+      cropBreakdown: { paddy: 72, tea: 0, other: 28 },
       damagePct: 25,
       livelihoodImpact: "Medium",
       affectedFarmers: 2350,
@@ -515,7 +515,7 @@ export const districts = [
       iou: 0.76,
     },
     m3: {
-      cropBreakdown: { paddy: 46, tea: 0, vegetables: 14, other: 40 },
+      cropBreakdown: { paddy: 58, tea: 0, other: 42 },
       damagePct: 38,
       livelihoodImpact: "High",
       affectedFarmers: 4700,
@@ -550,7 +550,7 @@ export const districts = [
       iou: 0.78,
     },
     m3: {
-      cropBreakdown: { paddy: 72, tea: 0, vegetables: 12, other: 16 },
+      cropBreakdown: { paddy: 82, tea: 0, other: 18 },
       damagePct: 44,
       livelihoodImpact: "High",
       affectedFarmers: 5800,
@@ -585,7 +585,7 @@ export const districts = [
       iou: 0.76,
     },
     m3: {
-      cropBreakdown: { paddy: 54, tea: 0, vegetables: 18, other: 28 },
+      cropBreakdown: { paddy: 68, tea: 0, other: 32 },
       damagePct: 31,
       livelihoodImpact: "Medium",
       affectedFarmers: 3200,
@@ -620,7 +620,7 @@ export const districts = [
       iou: 0.78,
     },
     m3: {
-      cropBreakdown: { paddy: 55, tea: 0, vegetables: 22, other: 23 },
+      cropBreakdown: { paddy: 72, tea: 0, other: 28 },
       damagePct: 27,
       livelihoodImpact: "Medium",
       affectedFarmers: 3900,
@@ -655,7 +655,7 @@ export const districts = [
       iou: 0.8,
     },
     m3: {
-      cropBreakdown: { paddy: 42, tea: 0, vegetables: 26, other: 32 },
+      cropBreakdown: { paddy: 58, tea: 0, other: 42 },
       damagePct: 46,
       livelihoodImpact: "High",
       affectedFarmers: 6100,
@@ -690,7 +690,7 @@ export const districts = [
       iou: 0.77,
     },
     m3: {
-      cropBreakdown: { paddy: 70, tea: 0, vegetables: 15, other: 15 },
+      cropBreakdown: { paddy: 80, tea: 0, other: 20 },
       damagePct: 34,
       livelihoodImpact: "Medium",
       affectedFarmers: 4300,
@@ -725,7 +725,7 @@ export const districts = [
       iou: 0.81,
     },
     m3: {
-      cropBreakdown: { paddy: 78, tea: 0, vegetables: 10, other: 12 },
+      cropBreakdown: { paddy: 86, tea: 0, other: 14 },
       damagePct: 50,
       livelihoodImpact: "Severe",
       affectedFarmers: 7100,
@@ -760,7 +760,7 @@ export const districts = [
       iou: 0.73,
     },
     m3: {
-      cropBreakdown: { paddy: 18, tea: 48, vegetables: 26, other: 8 },
+      cropBreakdown: { paddy: 34, tea: 54, other: 12 },
       damagePct: 15,
       livelihoodImpact: "Low",
       affectedFarmers: 1350,
@@ -795,7 +795,7 @@ export const districts = [
       iou: 0.75,
     },
     m3: {
-      cropBreakdown: { paddy: 48, tea: 0, vegetables: 30, other: 22 },
+      cropBreakdown: { paddy: 68, tea: 0, other: 32 },
       damagePct: 23,
       livelihoodImpact: "Medium",
       affectedFarmers: 2100,
@@ -830,7 +830,7 @@ export const districts = [
       iou: 0.74,
     },
     m3: {
-      cropBreakdown: { paddy: 38, tea: 26, vegetables: 12, other: 24 },
+      cropBreakdown: { paddy: 46, tea: 30, other: 24 },
       damagePct: 57,
       livelihoodImpact: "Severe",
       affectedFarmers: 8100,
@@ -865,7 +865,7 @@ export const districts = [
       iou: 0.77,
     },
     m3: {
-      cropBreakdown: { paddy: 18, tea: 34, vegetables: 9, other: 39 },
+      cropBreakdown: { paddy: 24, tea: 38, other: 38 },
       damagePct: 24,
       livelihoodImpact: "Medium",
       affectedFarmers: 2200,

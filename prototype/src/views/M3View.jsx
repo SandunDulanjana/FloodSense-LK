@@ -8,7 +8,6 @@ import { districts, getDistrictById, getDamageTier, getDamageColor, DAMAGE_COLOR
 const CROP_COLORS = {
   paddy: "#2dd4bf",
   tea: "#7f9cf5",
-  vegetables: "#f2a63c",
   other: "#5b6580",
 };
 
