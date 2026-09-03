@@ -3,6 +3,8 @@
 // or a live data feed. For the prototype, everything is a hardcoded value so
 // the UI can be demoed without a backend.
 
+import { deriveM4Chain } from "./floodRiskModel";
+
 export const districts = [
   {
     id: "colombo",
@@ -880,6 +882,14 @@ export const districts = [
     },
   },
 ];
+
+// Merge M4 pre-flood prediction-chain fields (river stage, catchment rainfall,
+// trend, etc.) into every district. ADD only -- the authored m4 fields
+// (floodProbability, riskLevel, sldi, populationExposure,
+// infrastructureAccessibility, historicalVulnerability) stay untouched.
+for (const d of districts) {
+  d.m4 = { ...d.m4, ...deriveM4Chain(d) };
+}
 
 export const getDistrictById = (id) => districts.find((d) => d.id === id) || districts[0];
 

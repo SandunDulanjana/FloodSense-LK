@@ -12,6 +12,49 @@ export default function OverviewView() {
   const avgCropDamage = useMemo(() => Math.round(districts.reduce((s, d) => s + d.m3.damagePct, 0) / districts.length), []);
   const highRiskCount = useMemo(() => districts.filter((d) => d.m4.riskLevel === "HIGH").length, []);
 
+  // --- Pre-flood (prediction) aggregates -----------------------------------
+  const avgFloodProbability = useMemo(
+    () => Math.round((districts.reduce((s, d) => s + d.m4.floodProbability, 0) / districts.length) * 100),
+    []
+  );
+  const aboveAlert = useMemo(() => districts.filter((d) => d.m4.riverLevelM >= d.m4.riverAlertLevelM).length, []);
+  const aboveDanger = useMemo(() => districts.filter((d) => d.m4.riverLevelM >= d.m4.riverDangerLevelM).length, []);
+  const wettestCatchment = useMemo(
+    () => [...districts].sort((a, b) => b.m4.upstreamRainfall10dayMm - a.m4.upstreamRainfall10dayMm)[0],
+    []
+  );
+  const topPredicted = useMemo(
+    () => [...districts].sort((a, b) => b.m4.floodProbability - a.m4.floodProbability).slice(0, 5),
+    []
+  );
+
+  // --- Post-flood (impact) combined index across M1..M4 --------------------
+  const overallImpact = useMemo(() => {
+    const maxHouses = Math.max(...districts.map((d) => d.m1.housesDamaged));
+    const norm = (v, max) => Math.min(100, (v / max) * 100);
+    const total = districts.reduce(
+      (s, d) =>
+        s +
+        0.3 * norm(d.m1.housesDamaged, maxHouses) +
+        0.2 * (100 - d.m2.passablePct) +
+        0.2 * d.m3.damagePct +
+        0.3 * d.m4.sldi,
+      0
+    );
+    return Math.round(total / districts.length);
+  }, []);
+
+  const riskCounts = useMemo(
+    () => ({
+      ALL: districts.length,
+      HIGH: districts.filter((d) => d.m4.riskLevel === "HIGH").length,
+      MEDIUM: districts.filter((d) => d.m4.riskLevel === "MEDIUM").length,
+      LOW: districts.filter((d) => d.m4.riskLevel === "LOW").length,
+    }),
+    []
+  );
+  const impactTone = overallImpact > 70 ? "severe" : overallImpact > 45 ? "high" : "medium";
+
   const moduleSummaries = [
     {
       key: "M1",
@@ -150,6 +193,151 @@ export default function OverviewView() {
         </div>
       </div>
 
+      {/* Disaster Timeline: Prediction vs Impact */}
+      <div className="panel" style={{ padding: "18px 20px", marginBottom: 24 }}>
+        <p className="panel-title" style={{ marginBottom: 4 }}>
+          Disaster timeline &mdash; prediction vs impact
+        </p>
+        <p style={{ fontSize: 12.5, color: "var(--text-secondary)", margin: "0 0 16px" }}>
+          The pre-flood chain forecasts where flooding is likely; the post-flood view fuses realized damage across every module.
+        </p>
+
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 18 }}>
+          {/* Pre-flood */}
+          <div className="panel" style={{ padding: "16px 18px", position: "relative", overflow: "hidden" }}>
+            <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: "var(--m4)" }} />
+            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
+              <strong style={{ fontSize: 13, color: "var(--text-primary)" }}>Pre-flood &middot; Prediction</strong>
+              <span
+                style={{
+                  fontSize: 10,
+                  fontWeight: 700,
+                  color: "var(--m4)",
+                  background: "var(--m4-bg)",
+                  border: "1px solid var(--m4-border)",
+                  padding: "2px 7px",
+                  borderRadius: 6,
+                }}
+              >
+                M4 chain
+              </span>
+            </div>
+            <p style={{ fontSize: 11.5, color: "var(--text-muted)", margin: "0 0 12px" }}>
+              Catchment rainfall &rarr; river stage &rarr; flood probability. Forecast, before damage is realized.
+            </p>
+
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 8, marginBottom: 12 }}>
+              {[
+                { label: "Avg flood prob.", value: `${avgFloodProbability}%` },
+                { label: "Rivers ≥ alert", value: `${aboveAlert}/${districts.length}` },
+                { label: "Rivers ≥ danger", value: `${aboveDanger}/${districts.length}` },
+              ].map((s) => (
+                <div key={s.label} style={{ background: "var(--bg-panel-raised)", borderRadius: 6, padding: "8px 10px" }}>
+                  <p style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.04em", color: "var(--text-muted)", margin: "0 0 4px", fontWeight: 700 }}>
+                    {s.label}
+                  </p>
+                  <p className="mono" style={{ fontSize: 17, fontWeight: 800, margin: 0, color: "var(--text-primary)" }}>{s.value}</p>
+                </div>
+              ))}
+            </div>
+
+            <p style={{ fontSize: 11.5, color: "var(--text-secondary)", margin: "0 0 10px" }}>
+              Wettest catchment: <strong>{wettestCatchment.name}</strong> &mdash; {wettestCatchment.m4.upstreamRainfall10dayMm} mm upstream
+              <span style={{ color: "var(--text-muted)" }}> ({wettestCatchment.m4.catchment})</span>
+            </p>
+
+            <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+              {topPredicted.map((d) => (
+                <Link
+                  key={d.id}
+                  to="/m4"
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    fontSize: 12,
+                    textDecoration: "none",
+                    color: "var(--text-secondary)",
+                    padding: "4px 6px",
+                    borderRadius: 5,
+                    background: "var(--bg-panel-raised)",
+                  }}
+                >
+                  <span style={{ fontWeight: 600, color: "var(--text-primary)" }}>{d.name}</span>
+                  <span className="mono">
+                    {d.m4.riverName} {d.m4.riverLevelM}/{d.m4.riverDangerLevelM} m &middot; {Math.round(d.m4.floodProbability * 100)}%
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* Post-flood */}
+          <div className="panel" style={{ padding: "16px 18px", position: "relative", overflow: "hidden" }}>
+            <div
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                right: 0,
+                height: 3,
+                background: "linear-gradient(90deg, #2563eb, #0d9488, #16a34a, #e11d48)",
+              }}
+            />
+            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
+              <strong style={{ fontSize: 13, color: "var(--text-primary)" }}>Post-flood &middot; Impact</strong>
+              <span
+                style={{
+                  fontSize: 10,
+                  fontWeight: 700,
+                  color: "var(--text-secondary)",
+                  background: "var(--bg-panel-raised)",
+                  border: "1px solid var(--border)",
+                  padding: "2px 7px",
+                  borderRadius: 6,
+                }}
+              >
+                M1 + M2 + M3 + M4
+              </span>
+            </div>
+            <p style={{ fontSize: 11.5, color: "var(--text-muted)", margin: "0 0 12px" }}>
+              Realized damage fused across all four modules.
+            </p>
+
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 8, marginBottom: 12 }}>
+              {[
+                { label: "Houses damaged", value: totalHousesDamaged.toLocaleString() },
+                { label: "Roads flooded", value: `${totalRoadsFlooded.toLocaleString()} km` },
+                { label: "Avg crop damage", value: `${avgCropDamage}%` },
+                { label: "Districts at HIGH risk", value: `${highRiskCount}/${districts.length}` },
+              ].map((s) => (
+                <div key={s.label} style={{ background: "var(--bg-panel-raised)", borderRadius: 6, padding: "8px 10px" }}>
+                  <p style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.04em", color: "var(--text-muted)", margin: "0 0 4px", fontWeight: 700 }}>
+                    {s.label}
+                  </p>
+                  <p className="mono" style={{ fontSize: 17, fontWeight: 800, margin: 0, color: "var(--text-primary)" }}>{s.value}</p>
+                </div>
+              ))}
+            </div>
+
+            <div
+              style={{
+                borderRadius: 6,
+                padding: "10px 12px",
+                background: `var(--risk-${impactTone}-bg)`,
+                border: `1px solid var(--risk-${impactTone})`,
+              }}
+            >
+              <p style={{ fontSize: 10.5, textTransform: "uppercase", letterSpacing: "0.04em", color: "var(--text-secondary)", margin: "0 0 2px", fontWeight: 700 }}>
+                Combined impact index
+              </p>
+              <p className="mono" style={{ fontSize: 20, fontWeight: 800, margin: 0, color: `var(--risk-${impactTone})` }}>
+                {overallImpact} <span style={{ fontSize: 12, color: "var(--text-muted)", fontFamily: "var(--font-sans)" }}>/ 100</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Module Overview Cards Grid */}
       <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16, marginBottom: 24 }}>
         {moduleSummaries.map((m) => (
@@ -266,10 +454,10 @@ export default function OverviewView() {
             {/* Risk Filter Tabs */}
             <div style={{ display: "flex", background: "var(--bg-input)", border: "1px solid var(--border)", borderRadius: 8, padding: 2 }}>
               {[
-                { id: "ALL", label: "All (25)" },
-                { id: "HIGH", label: "🔴 High (10)" },
-                { id: "MEDIUM", label: "🟡 Medium (10)" },
-                { id: "LOW", label: "🟢 Low (5)" },
+                { id: "ALL", label: `All (${riskCounts.ALL})` },
+                { id: "HIGH", label: `🔴 High (${riskCounts.HIGH})` },
+                { id: "MEDIUM", label: `🟡 Medium (${riskCounts.MEDIUM})` },
+                { id: "LOW", label: `🟢 Low (${riskCounts.LOW})` },
               ].map((tab) => {
                 const active = riskFilter === tab.id;
                 return (

@@ -4,7 +4,7 @@ const modules = [
   { to: "/m1", label: "Building damage", key: "M1", color: "var(--m1)", bg: "var(--m1-bg)", border: "var(--m1-border)", desc: "AI Damage Estimation" },
   { to: "/m2", label: "Road accessibility", key: "M2", color: "var(--m2)", bg: "var(--m2-bg)", border: "var(--m2-border)", desc: "SAR Inundation Map" },
   { to: "/m3", label: "Agricultural impact", key: "M3", color: "var(--m3)", bg: "var(--m3-bg)", border: "var(--m3-border)", desc: "Crop Damage & GIS" },
-  { to: "/m4", label: "Flood risk", key: "M4", color: "var(--m4)", bg: "var(--m4-bg)", border: "var(--m4-border)", desc: "SLDI Prioritization" },
+  { to: "/m4", label: "Flood forecast", key: "M4", color: "var(--m4)", bg: "var(--m4-bg)", border: "var(--m4-border)", desc: "SLDI Prioritization" },
 ];
 
 function SectionLabel({ children }) {
