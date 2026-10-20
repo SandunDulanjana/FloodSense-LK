@@ -1,0 +1,16 @@
+{
+  "step02_gee_check": {"s2_pre_count_lt20pct_cloud": 15, "s2_clearest_cloud_pct": 6.0, "s1_post_dates": ["2025-11-26", "2025-12-02", "2025-12-08"],
+                       "s1_pre_dates": ["2025-10-09", "2025-10-21", "2025-11-02", "2025-11-14"], "s1_post_orbit": "DESCENDING",
+                       "buildings_conf_ge_0.75": 349477, "dem_min_max_m": [-11, 367]},
+  "step03_composite": {"s2_scenes_used": 140, "tile_building_counts": {"Kolonnawa/Wellampitiya": 3882, "Kaduwela": 2143, "Malwana": 2040, "Hanwella": 1307, "Avissawella side": 1359}},
+  "step04b_sensitivity_flood_area_km2": {"A_current": 6.87, "B_noSlope": 8.35, "C_relaxed": 9.88, "D_VV_or_VH": 10.80, "chosen": "D_VV_or_VH"},
+  "step04c_note": "Per-building GEE table export (task MC46UZVIRKM5XRZYC75ZGXVZ) FAILED: Computation timed out -> replaced by raster export (4e) + Python distances (6).",
+  "gee_export_tasks": {"raster_stack_v1": "3QTMHS34SYPVPNRMMOU36N3B", "label_raster_v2": "W2FKP3R7YTK2VFCLBNQC4E24", "building_points_v2": "GT56UEQQHY3FCCRN2RE4HGR5"},
+  "step06_dataset": {"grid": [1336, 4091], "crs": "EPSG:32644", "flood_pixels": 124685, "flood_km2": 12.47, "buildings_exported": 349477, "buildings_usable": 341971,
+                     "spatial_blocks_2km": 144,
+                     "pct_within_m": {"0": 0.01, "10": 0.03, "30": 0.33, "50": 1.35, "100": 5.40, "150": 10.46, "200": 15.66, "300": 25.38},
+                     "vv_brightening_gt3db_pct": 1.47,
+                     "median_near50_vs_far150": {"hand_m": [4.40, 8.40], "dem_m": [12.0, 19.0], "dist_river_m": [1375.81, 1841.14]}},
+  "step07_labels": {"high_m": 100, "medium_m": 300, "sample_n": 50000, "class_counts": {"Low": 37462, "Medium": 9844, "High": 2694},
+                    "fold_test_sizes": [3856, 6071, 5883, 4513, 4501, 5642, 4273, 4984, 5547, 4730], "nan_filled": {"X_built_frac_100m": 27}}
+}

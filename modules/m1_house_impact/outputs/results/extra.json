@@ -1,0 +1,72 @@
+{
+  "generated": "2026-10-23 16:44 UTC (22:14 Sri Lanka time)",
+  "pretraining": "ResNet-18 trained from random weights (D2) reached macro-F1 0.648, while the same ResNet-18 starting from ImageNet weights (D3) reached 0.642; the satellite-pretrained ResNet-50 (SSL4EO-S12, D4, RGB only) reached 0.528. The small CNN trained from scratch (D1) reached 0.644. So pre-training did not give a clear gain here: with 45,000 labelled buildings per fold and 10-band 32x32 inputs, the network can learn useful filters from scratch, and ImageNet filters (learned on natural RGB photos) transfer only partly to multispectral 10 m imagery. D4 uses only 3 RGB bands (the available SSL4EO weights are RGB), so it cannot use NIR/SWIR or terrain bands; its result should be read with this in mind.",
+  "importance_text": "The most important features are X_built_frac_100m (17%), X_dem_m (17%), X_dist_river_m (16%), X_hand_m (10%), X_slope_deg (8%). Terrain-related features (HAND, elevation, distance to river) and land-surface wetness signals matter most, which agrees with flood physics.",
+  "decision_text": "<b>D6_HSC_Attention</b> has the highest mean macro-F1 (0.666) and the best mean rank (1.50). Friedman rejects equal performance (p = 3.40e-13); Wilcoxon tests show that the selected model is significantly better than 9 of 9 other models after Holm correction. McNemar vs D2_ResNet18_random: p < 1e-16. Best tabular model: T2_RandomForest (0.551); best deep model: D6_HSC_Attention (0.666). Therefore D6_HSC_Attention is selected as the Progress-01 model. <b>Caution:</b> the all-pairs Nemenyi test is more conservative: the rank gap between D6_HSC_Attention and D2_ResNet18_random, D1_SimpleCNN_scratch, D3_ResNet18_ImageNet, D5_DualStream_Concat is smaller than the critical difference (4.28), so Nemenyi cannot separate D6_HSC_Attention from these models; only the planned best-vs-others Wilcoxon tests (Holm-corrected) do. We therefore say: HSC-Attention is the best model in this experiment, with a small but consistent margin (it won 8\u20139 of 10 folds against each deep model), and it is clearly better than all tabular models. The proposed HSC-Attention prototype (D6, 0.666) vs the proposal Baseline 1 Dual-Stream concatenation (D5, 0.636): difference +0.029. Cross-attention helped slightly in this first prototype; without the M4 forecast input its main advantage (spatially weighting forecast flood depth) cannot yet be shown.",
+  "lit_text": "The Sri Lankan susceptibility study reports AUC 0.970 with a non-spatial split; our best AUC(High) under spatial CV is 0.963. Our own experiment shows that a random split inflates scores (for T2_RandomForest: AUC 0.910 random vs 0.880 spatial; macro-F1 0.605 vs 0.551). Also, published studies classify flood/non-flood points (2 classes), while we predict 3 ordinal classes for every building, which is harder. Our AUC is in the same range as Seleem et al. (\u2265 0.87), but the tasks differ, so this is context, not a competition.",
+  "viva": [
+    [
+      "Why did you change from damage grades to flood exposure?",
+      "Because no building-damage labels exist for Sri Lanka and Sentinel-2 (10 m) cannot see roof damage. Exposure is measurable from Sentinel-1 radar and is the first condition for damage. The damage-grade task continues as a separate track using xBD."
+    ],
+    [
+      "How do you know your labels are correct?",
+      "We compared four SAR rules (sensitivity test) and chose the one that best matched the visible flood; the labels agree with physics (exposed buildings have median HAND 4.4 m vs 8.4 m). Limitations: receding flood on 2 Dec and urban double-bounce. Next step: check against Copernicus EMS EMSR851 delineations."
+    ],
+    [
+      "Is there data leakage?",
+      "We used spatial block CV (2 km blocks), per-fold normalisation from training blocks only, and kept terrain variables out of the label rule. All inputs are pre-flood. We also measured how much a random split would inflate scores (0.605 vs 0.551 macro-F1)."
+    ],
+    [
+      "Why macro-F1 and not accuracy?",
+      "75% of buildings are Low exposure; a model that always says Low gets 75% accuracy but is useless. Macro-F1 gives each class equal weight, so High exposure counts."
+    ],
+    [
+      "Why the Friedman test and not a t-test?",
+      "We compare many models over the same 10 folds. Friedman is the recommended non-parametric test for this (Dem\u0161ar, 2006); it does not assume normal scores. Pairwise Wilcoxon tests with Holm correction then tell which differences are real."
+    ],
+    [
+      "Why 10 folds instead of the 5 in your proposal?",
+      "With 5 folds the Wilcoxon test can never reach p < 0.05; 10 folds give enough paired results for a valid test."
+    ],
+    [
+      "Did pre-training help?",
+      "ResNet-18 trained from random weights (D2) reached macro-F1 0.648, while the same ResNet-18 starting from ImageNet weights (D3) reached 0.642; the satellite-pretrained ResNet-50 (SSL4EO-S12, D4, RGB only) reached 0.528. The small CNN trained from scratch (D1) reached 0.644. So pre-training did not give a clear gain here: with 45,000 labelled buildings per fold and 10-band 32x32 inputs, the network can learn useful filters from scratch, and ImageNet filters (learned on natural RGB photos) transfer only partly to multispectral 10 m imagery. D4 uses only 3 RGB bands (the available SSL4EO weights are RGB), so it cannot use NIR/SWIR or terrain bands; its result should be read with this in mind."
+    ],
+    [
+      "What is new in HSC-Attention compared with the baseline?",
+      "Baseline 1 joins image and terrain features after global pooling (no spatial interaction). HSC-Attention lets each image region attend to terrain regions with cross-attention, so terrain can be weighted differently across the neighbourhood. In this prototype: D6 0.666 vs D5 0.636."
+    ],
+    [
+      "Your proposal targeted macro-F1 \u2265 0.78. Why is your result lower?",
+      "The target was for damage grades on xBD-style data. Our task is 3-class exposure from 10 m imagery with noisy SAR labels, tested spatially. The measured value (0.666) is honest; we will improve it with M4 forecast input, better labels and tuning."
+    ],
+    [
+      "How fast is the model?",
+      "The final model predicted all 341,971 buildings in 71.8 s (209.8 ms per 1,000 buildings), far below the 45 s per tile requirement."
+    ],
+    [
+      "Can DMC use this tomorrow?",
+      "Not yet. It is validated on one event and one basin. It needs a second event test and M4 forecast input. Today it is a research prototype with a working demo."
+    ]
+  ],
+  "software": "Python 3.13 (Colab), PyTorch 2.x, torchvision, timm, torchgeo, scikit-learn 1.6.1, XGBoost 3.4.1, LightGBM 4.6.0, scikit-posthocs, rasterio 1.5.2",
+  "final": {
+    "n_unseen": 291971,
+    "f1_unseen": 0.7577,
+    "pred_counts": [
+      226645,
+      85489,
+      29837
+    ],
+    "sar_counts": [
+      255169,
+      68335,
+      18467
+    ],
+    "ms_per_1000": 209.85,
+    "infer_s": 71.76,
+    "generated": "2026-10-23 16:44 UTC (22:14 Sri Lanka time)",
+    "demo_zip_MB": 4.6
+  }
+}

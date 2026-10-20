@@ -1,0 +1,409 @@
+{
+  "generated": "2026-10-23 16:44 UTC (22:14 Sri Lanka time)",
+  "n_buildings": 341971,
+  "best": "D6_HSC_Attention",
+  "runner_up": "D2_ResNet18_random",
+  "summary": [
+    {
+      "model": "D6_HSC_Attention",
+      "macro_f1": 0.6655904509283631,
+      "f1_sd": 0.029880031919941135,
+      "bal_acc": 0.7452935889354974,
+      "qwk": 0.5938246638157543,
+      "auc_high": 0.9627326279257534,
+      "fit_s": 51.06,
+      "infer_ms_per_1000": 70.397,
+      "mean_rank": 1.5
+    },
+    {
+      "model": "D2_ResNet18_random",
+      "macro_f1": 0.6477343171749895,
+      "f1_sd": 0.038940696766732424,
+      "bal_acc": 0.744258437249673,
+      "qwk": 0.5721922396513057,
+      "auc_high": 0.9594937194653503,
+      "fit_s": 44.31,
+      "infer_ms_per_1000": 143.122,
+      "mean_rank": 3.4
+    },
+    {
+      "model": "D1_SimpleCNN_scratch",
+      "macro_f1": 0.6442295563104555,
+      "f1_sd": 0.04145300430355703,
+      "bal_acc": 0.7335249843180525,
+      "qwk": 0.5745194647197203,
+      "auc_high": 0.9533864896991833,
+      "fit_s": 17.64,
+      "infer_ms_per_1000": 48.323,
+      "mean_rank": 3.4
+    },
+    {
+      "model": "D3_ResNet18_ImageNet",
+      "macro_f1": 0.6421574587892588,
+      "f1_sd": 0.03743542248889768,
+      "bal_acc": 0.7239316944342156,
+      "qwk": 0.5589689258940422,
+      "auc_high": 0.957771910163796,
+      "fit_s": 43.17,
+      "infer_ms_per_1000": 55.325,
+      "mean_rank": 3.2
+    },
+    {
+      "model": "D5_DualStream_Concat",
+      "macro_f1": 0.6361894237661557,
+      "f1_sd": 0.04403109790926909,
+      "bal_acc": 0.7187239800223041,
+      "qwk": 0.555609965056641,
+      "auc_high": 0.9567997727157549,
+      "fit_s": 56.8,
+      "infer_ms_per_1000": 185.206,
+      "mean_rank": 3.5
+    },
+    {
+      "model": "T2_RandomForest",
+      "macro_f1": 0.5511036542213591,
+      "f1_sd": 0.03376637588491671,
+      "bal_acc": 0.5687372232441772,
+      "qwk": 0.4394709218493472,
+      "auc_high": 0.8800469797652541,
+      "fit_s": 37.945,
+      "infer_ms_per_1000": 49.839999999999996,
+      "mean_rank": 6.6
+    },
+    {
+      "model": "T4_LightGBM",
+      "macro_f1": 0.5425559099970061,
+      "f1_sd": 0.028710897835045147,
+      "bal_acc": 0.5920345695326354,
+      "qwk": 0.4190763440832931,
+      "auc_high": 0.8777475631308358,
+      "fit_s": 7.6819999999999995,
+      "infer_ms_per_1000": 166.509,
+      "mean_rank": 7.1
+    },
+    {
+      "model": "T3_XGBoost",
+      "macro_f1": 0.5312077960589257,
+      "f1_sd": 0.029573829724178047,
+      "bal_acc": 0.6147661854540682,
+      "qwk": 0.39767570896444054,
+      "auc_high": 0.8806122805085181,
+      "fit_s": 7.6290000000000004,
+      "infer_ms_per_1000": 22.953,
+      "mean_rank": 8.3
+    },
+    {
+      "model": "D4_ResNet50_SSL4EO",
+      "macro_f1": 0.5276249546847724,
+      "f1_sd": 0.05721487058241106,
+      "bal_acc": 0.6389415719530198,
+      "qwk": 0.3532857814903598,
+      "auc_high": 0.9277426234306967,
+      "fit_s": 107.52000000000001,
+      "infer_ms_per_1000": 299.664,
+      "mean_rank": 8.1
+    },
+    {
+      "model": "T1_LogReg",
+      "macro_f1": 0.4727715067659446,
+      "f1_sd": 0.03916055043896863,
+      "bal_acc": 0.6026876231508118,
+      "qwk": 0.30421413756187643,
+      "auc_high": 0.8704607923054339,
+      "fit_s": 2.697,
+      "infer_ms_per_1000": 1.264,
+      "mean_rank": 9.9
+    }
+  ],
+  "friedman": {
+    "chi2": 78.3709090909091,
+    "p": 3.402316923573278e-13,
+    "iman_F": 60.652908067542235,
+    "p_iman": 1.1102230246251565e-16
+  },
+  "nemenyi_CD": 4.284076252044696,
+  "wilcoxon": [
+    {
+      "model": "D4_ResNet50_SSL4EO",
+      "mean_diff": 0.1379654962435906,
+      "wins": 10,
+      "p_raw": 0.0009765625,
+      "p_holm": 0.0087890625,
+      "significant_0.05": true
+    },
+    {
+      "model": "T3_XGBoost",
+      "mean_diff": 0.13438265486943737,
+      "wins": 10,
+      "p_raw": 0.0009765625,
+      "p_holm": 0.0087890625,
+      "significant_0.05": true
+    },
+    {
+      "model": "T2_RandomForest",
+      "mean_diff": 0.11448679670700393,
+      "wins": 10,
+      "p_raw": 0.0009765625,
+      "p_holm": 0.0087890625,
+      "significant_0.05": true
+    },
+    {
+      "model": "T1_LogReg",
+      "mean_diff": 0.19281894416241852,
+      "wins": 10,
+      "p_raw": 0.0009765625,
+      "p_holm": 0.0087890625,
+      "significant_0.05": true
+    },
+    {
+      "model": "T4_LightGBM",
+      "mean_diff": 0.12303454093135699,
+      "wins": 10,
+      "p_raw": 0.0009765625,
+      "p_holm": 0.0087890625,
+      "significant_0.05": true
+    },
+    {
+      "model": "D3_ResNet18_ImageNet",
+      "mean_diff": 0.02343299213910428,
+      "wins": 9,
+      "p_raw": 0.0029296875,
+      "p_holm": 0.01171875,
+      "significant_0.05": true
+    },
+    {
+      "model": "D5_DualStream_Concat",
+      "mean_diff": 0.029401027162207362,
+      "wins": 9,
+      "p_raw": 0.0048828125,
+      "p_holm": 0.0146484375,
+      "significant_0.05": true
+    },
+    {
+      "model": "D1_SimpleCNN_scratch",
+      "mean_diff": 0.021360894617907522,
+      "wins": 8,
+      "p_raw": 0.0068359375,
+      "p_holm": 0.0146484375,
+      "significant_0.05": true
+    },
+    {
+      "model": "D2_ResNet18_random",
+      "mean_diff": 0.01785613375337347,
+      "wins": 9,
+      "p_raw": 0.0068359375,
+      "p_holm": 0.0146484375,
+      "significant_0.05": true
+    }
+  ],
+  "mcnemar": {
+    "b": 3904,
+    "c": 3158,
+    "chi2": 78.59317473803455,
+    "p": 0.0
+  },
+  "bootstrap_ci": [
+    {
+      "model": "D6_HSC_Attention",
+      "pooled_macro_f1": 0.6809940888239496,
+      "ci_low": 0.6475740564287236,
+      "ci_high": 0.7078603263735799
+    },
+    {
+      "model": "D2_ResNet18_random",
+      "pooled_macro_f1": 0.6611813510332515,
+      "ci_low": 0.6261672543774166,
+      "ci_high": 0.6911871692594368
+    },
+    {
+      "model": "D1_SimpleCNN_scratch",
+      "pooled_macro_f1": 0.6559540593783978,
+      "ci_low": 0.6230695162752928,
+      "ci_high": 0.6855250983585133
+    },
+    {
+      "model": "D3_ResNet18_ImageNet",
+      "pooled_macro_f1": 0.6608003757614223,
+      "ci_low": 0.6282133489104088,
+      "ci_high": 0.690583850610947
+    },
+    {
+      "model": "D5_DualStream_Concat",
+      "pooled_macro_f1": 0.6573871368536232,
+      "ci_low": 0.6268235275472211,
+      "ci_high": 0.6869989978304211
+    },
+    {
+      "model": "T2_RandomForest",
+      "pooled_macro_f1": 0.5692447980498242,
+      "ci_low": 0.5419831573786327,
+      "ci_high": 0.5982791405782419
+    },
+    {
+      "model": "T4_LightGBM",
+      "pooled_macro_f1": 0.5589587503508785,
+      "ci_low": 0.53006907368383,
+      "ci_high": 0.586116864436557
+    },
+    {
+      "model": "T3_XGBoost",
+      "pooled_macro_f1": 0.546761673597931,
+      "ci_low": 0.5129348862227611,
+      "ci_high": 0.5755308707832208
+    },
+    {
+      "model": "D4_ResNet50_SSL4EO",
+      "pooled_macro_f1": 0.5423733062271906,
+      "ci_low": 0.505234903780171,
+      "ci_high": 0.5732572553749526
+    },
+    {
+      "model": "T1_LogReg",
+      "pooled_macro_f1": 0.4896836901022004,
+      "ci_low": 0.4558709470544344,
+      "ci_high": 0.5218355788841692
+    }
+  ],
+  "random_cv": {
+    "model": "T2_RandomForest",
+    "f1_random": 0.6052,
+    "auc_random": 0.9102,
+    "f1_spatial": 0.5511,
+    "auc_spatial": 0.88
+  },
+  "importance": [
+    [
+      "X_built_frac_100m",
+      0.1705
+    ],
+    [
+      "X_dem_m",
+      0.1688
+    ],
+    [
+      "X_dist_river_m",
+      0.1564
+    ],
+    [
+      "X_hand_m",
+      0.1027
+    ],
+    [
+      "X_slope_deg",
+      0.0772
+    ],
+    [
+      "X_B11",
+      0.0494
+    ],
+    [
+      "X_area_m2",
+      0.0457
+    ],
+    [
+      "X_B8",
+      0.0443
+    ],
+    [
+      "X_ndvi",
+      0.0373
+    ],
+    [
+      "X_B2",
+      0.0365
+    ],
+    [
+      "X_B3",
+      0.0364
+    ],
+    [
+      "X_B4",
+      0.0344
+    ],
+    [
+      "X_ndwi",
+      0.0326
+    ],
+    [
+      "X_landcover",
+      0.0078
+    ]
+  ],
+  "params_M": {
+    "D1_SimpleCNN_scratch": 0.14,
+    "D2_ResNet18_random": 11.2,
+    "D3_ResNet18_ImageNet": 11.2,
+    "D4_ResNet50_SSL4EO": 23.51,
+    "D5_DualStream_Concat": 12.12,
+    "D6_HSC_Attention": 4.19
+  },
+  "pretraining": "ResNet-18 trained from random weights (D2) reached macro-F1 0.648, while the same ResNet-18 starting from ImageNet weights (D3) reached 0.642; the satellite-pretrained ResNet-50 (SSL4EO-S12, D4, RGB only) reached 0.528. The small CNN trained from scratch (D1) reached 0.644. So pre-training did not give a clear gain here: with 45,000 labelled buildings per fold and 10-band 32x32 inputs, the network can learn useful filters from scratch, and ImageNet filters (learned on natural RGB photos) transfer only partly to multispectral 10 m imagery. D4 uses only 3 RGB bands (the available SSL4EO weights are RGB), so it cannot use NIR/SWIR or terrain bands; its result should be read with this in mind.",
+  "importance_text": "The most important features are X_built_frac_100m (17%), X_dem_m (17%), X_dist_river_m (16%), X_hand_m (10%), X_slope_deg (8%). Terrain-related features (HAND, elevation, distance to river) and land-surface wetness signals matter most, which agrees with flood physics.",
+  "decision_text": "<b>D6_HSC_Attention</b> has the highest mean macro-F1 (0.666) and the best mean rank (1.50). Friedman rejects equal performance (p = 3.40e-13); Wilcoxon tests show that the selected model is significantly better than 9 of 9 other models after Holm correction. McNemar vs D2_ResNet18_random: p < 1e-16. Best tabular model: T2_RandomForest (0.551); best deep model: D6_HSC_Attention (0.666). Therefore D6_HSC_Attention is selected as the Progress-01 model. <b>Caution:</b> the all-pairs Nemenyi test is more conservative: the rank gap between D6_HSC_Attention and D2_ResNet18_random, D1_SimpleCNN_scratch, D3_ResNet18_ImageNet, D5_DualStream_Concat is smaller than the critical difference (4.28), so Nemenyi cannot separate D6_HSC_Attention from these models; only the planned best-vs-others Wilcoxon tests (Holm-corrected) do. We therefore say: HSC-Attention is the best model in this experiment, with a small but consistent margin (it won 8\u20139 of 10 folds against each deep model), and it is clearly better than all tabular models. The proposed HSC-Attention prototype (D6, 0.666) vs the proposal Baseline 1 Dual-Stream concatenation (D5, 0.636): difference +0.029. Cross-attention helped slightly in this first prototype; without the M4 forecast input its main advantage (spatially weighting forecast flood depth) cannot yet be shown.",
+  "lit_text": "The Sri Lankan susceptibility study reports AUC 0.970 with a non-spatial split; our best AUC(High) under spatial CV is 0.963. Our own experiment shows that a random split inflates scores (for T2_RandomForest: AUC 0.910 random vs 0.880 spatial; macro-F1 0.605 vs 0.551). Also, published studies classify flood/non-flood points (2 classes), while we predict 3 ordinal classes for every building, which is harder. Our AUC is in the same range as Seleem et al. (\u2265 0.87), but the tasks differ, so this is context, not a competition.",
+  "viva": [
+    [
+      "Why did you change from damage grades to flood exposure?",
+      "Because no building-damage labels exist for Sri Lanka and Sentinel-2 (10 m) cannot see roof damage. Exposure is measurable from Sentinel-1 radar and is the first condition for damage. The damage-grade task continues as a separate track using xBD."
+    ],
+    [
+      "How do you know your labels are correct?",
+      "We compared four SAR rules (sensitivity test) and chose the one that best matched the visible flood; the labels agree with physics (exposed buildings have median HAND 4.4 m vs 8.4 m). Limitations: receding flood on 2 Dec and urban double-bounce. Next step: check against Copernicus EMS EMSR851 delineations."
+    ],
+    [
+      "Is there data leakage?",
+      "We used spatial block CV (2 km blocks), per-fold normalisation from training blocks only, and kept terrain variables out of the label rule. All inputs are pre-flood. We also measured how much a random split would inflate scores (0.605 vs 0.551 macro-F1)."
+    ],
+    [
+      "Why macro-F1 and not accuracy?",
+      "75% of buildings are Low exposure; a model that always says Low gets 75% accuracy but is useless. Macro-F1 gives each class equal weight, so High exposure counts."
+    ],
+    [
+      "Why the Friedman test and not a t-test?",
+      "We compare many models over the same 10 folds. Friedman is the recommended non-parametric test for this (Dem\u0161ar, 2006); it does not assume normal scores. Pairwise Wilcoxon tests with Holm correction then tell which differences are real."
+    ],
+    [
+      "Why 10 folds instead of the 5 in your proposal?",
+      "With 5 folds the Wilcoxon test can never reach p < 0.05; 10 folds give enough paired results for a valid test."
+    ],
+    [
+      "Did pre-training help?",
+      "ResNet-18 trained from random weights (D2) reached macro-F1 0.648, while the same ResNet-18 starting from ImageNet weights (D3) reached 0.642; the satellite-pretrained ResNet-50 (SSL4EO-S12, D4, RGB only) reached 0.528. The small CNN trained from scratch (D1) reached 0.644. So pre-training did not give a clear gain here: with 45,000 labelled buildings per fold and 10-band 32x32 inputs, the network can learn useful filters from scratch, and ImageNet filters (learned on natural RGB photos) transfer only partly to multispectral 10 m imagery. D4 uses only 3 RGB bands (the available SSL4EO weights are RGB), so it cannot use NIR/SWIR or terrain bands; its result should be read with this in mind."
+    ],
+    [
+      "What is new in HSC-Attention compared with the baseline?",
+      "Baseline 1 joins image and terrain features after global pooling (no spatial interaction). HSC-Attention lets each image region attend to terrain regions with cross-attention, so terrain can be weighted differently across the neighbourhood. In this prototype: D6 0.666 vs D5 0.636."
+    ],
+    [
+      "Your proposal targeted macro-F1 \u2265 0.78. Why is your result lower?",
+      "The target was for damage grades on xBD-style data. Our task is 3-class exposure from 10 m imagery with noisy SAR labels, tested spatially. The measured value (0.666) is honest; we will improve it with M4 forecast input, better labels and tuning."
+    ],
+    [
+      "How fast is the model?",
+      "The final model predicted all 341,971 buildings in 71.8 s (209.8 ms per 1,000 buildings), far below the 45 s per tile requirement."
+    ],
+    [
+      "Can DMC use this tomorrow?",
+      "Not yet. It is validated on one event and one basin. It needs a second event test and M4 forecast input. Today it is a research prototype with a working demo."
+    ]
+  ],
+  "software": "Python 3.13 (Colab), PyTorch 2.x, torchvision, timm, torchgeo, scikit-learn 1.6.1, XGBoost 3.4.1, LightGBM 4.6.0, scikit-posthocs, rasterio 1.5.2",
+  "final": {
+    "n_unseen": 291971,
+    "f1_unseen": 0.7577,
+    "pred_counts": [
+      226645,
+      85489,
+      29837
+    ],
+    "sar_counts": [
+      255169,
+      68335,
+      18467
+    ],
+    "ms_per_1000": 209.85,
+    "infer_s": 71.76,
+    "generated": "2026-10-23 16:44 UTC (22:14 Sri Lanka time)",
+    "demo_zip_MB": 4.6
+  }
+}

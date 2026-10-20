@@ -1,0 +1,19 @@
+# Run in Google Colab (Python 3.13, Tesla T4). Versions used on 23 Oct 2026:
+earthengine-api
+numpy
+pandas
+pyarrow
+rasterio==1.5.2
+pyproj
+scipy==1.16.3
+scikit-learn==1.6.1
+xgboost==3.4.1
+lightgbm==4.6.0
+torch
+torchvision
+timm==1.0.30
+torchgeo
+scikit-posthocs
+matplotlib
+Pillow
+reportlab   # report generator only

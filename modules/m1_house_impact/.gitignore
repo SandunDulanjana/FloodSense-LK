@@ -1,0 +1,21 @@
+# Large data and generated artefacts (kept in Google Drive: MyDrive/M1_Research)
+*.tif
+*.tiff
+*.parquet
+*.npz
+*.npy
+*.pt
+*.pth
+*.joblib
+*.zip
+web/assets/data.js
+web/assets/s2_rgb.jpg
+web/assets/flood_mask.png
+# Secrets — never commit
+.env
+*.env
+**/credentials*.json
+**/*token*
+# Python / notebook cache
+__pycache__/
+.ipynb_checkpoints/
