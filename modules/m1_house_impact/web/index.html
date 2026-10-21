@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>M1 Flood Exposure Demo</title>
+<style>
+  :root{--bg:#0f1419;--panel:#171d24;--ink:#e6edf3;--muted:#9aa7b4;--line:#2a333d;--accent:#4aa3ff;
+        --low:#2e9d4f;--med:#f2a922;--high:#e0453a;}
+  *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 system-ui,Segoe UI,Roboto,Arial,sans-serif}
+  header{padding:14px 20px;border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:8px 24px;align-items:baseline}
+  header h1{font-size:18px;margin:0} header .sub{color:var(--muted);font-size:13px}
+  .wrap{display:grid;grid-template-columns:1fr 330px;gap:0;height:68vh;min-height:420px}
+  #map{position:relative;border-right:1px solid var(--line)} #map canvas{outline:none}
+  aside{background:var(--panel);padding:14px 16px;overflow:auto}
+  aside h3{font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin:14px 0 6px}
+  aside h3:first-child{margin-top:0}
+  label{display:block;margin:3px 0;cursor:pointer} .legend span{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+  .kv{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;font-size:13px} .kv b{font-weight:600}
+  #tip{position:absolute;pointer-events:none;background:#000d;color:#fff;padding:6px 8px;border-radius:6px;font-size:12px;display:none;z-index:5}
+  main{padding:18px 20px;max-width:1250px}
+  h2{font-size:17px;margin:26px 0 8px;border-bottom:1px solid var(--line);padding-bottom:6px}
+  table{border-collapse:collapse;width:100%;font-size:13px} th,td{padding:6px 8px;border-bottom:1px solid var(--line);text-align:right}
+  th:first-child,td:first-child{text-align:left} th{color:var(--muted);font-weight:600} tr.best td{background:#16324a}
+  .note{color:var(--muted);font-size:12.5px} .figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px}
+  .figs img{width:100%;background:#fff;border-radius:6px} .tag{display:inline-block;padding:1px 6px;border-radius:4px;font-size:11px;background:#24303c;color:var(--muted)}
+  table.lit td,table.lit th{text-align:left}
+  .bar{height:14px;background:var(--accent);border-radius:3px} .barrow{display:grid;grid-template-columns:220px 1fr 70px;gap:8px;align-items:center;margin:4px 0;font-size:12.5px}
+  .err{height:2px;background:#fff8;position:relative;top:-8px}
+  @media (max-width:900px){.wrap{grid-template-columns:1fr;height:auto}#map{height:60vh}}
+</style>
+</head>
+<body>
+<header>
+  <h1>Predictive Building Flood-Exposure Assessment — Lower Kelani Basin (Cyclone Ditwah, Dec 2025)</h1>
+  <div class="sub">J26-DS-360 · Component M1 · J.A.S. Dulanjana (IT23401112) · <span id="gen"></span></div>
+</header>
+<div class="wrap">
+  <div id="map"><div id="tip"></div></div>
+  <aside>
+    <h3>Colour buildings by</h3>
+    <label><input type="radio" name="mode" value="pred" checked> Model prediction (<span id="bestname"></span>)</label>
+    <label><input type="radio" name="mode" value="true"> SAR-derived label (observed, 2 Dec 2025)</label>
+    <label><input type="radio" name="mode" value="err"> Correct / wrong</label>
+    <label><input type="radio" name="mode" value="prob"> P(High exposure)</label>
+    <h3>Layers</h3>
+    <label><input type="checkbox" id="lyrS2" checked> Sentinel-2 pre-flood image (2025)</label>
+    <label><input type="checkbox" id="lyrFlood"> Sentinel-1 SAR flood water (2 Dec 2025)</label>
+    <label><input type="checkbox" id="lyrOnlyHigh"> Show only predicted High</label>
+    <h3>Legend</h3>
+    <div class="legend" id="legend"></div>
+    <h3>Summary</h3>
+    <div class="kv" id="stats"></div>
+    <h3>Selected building</h3>
+    <div class="kv" id="sel"><span class="note">Click a building on the map.</span></div>
+  </aside>
+</div>
+<main>
+  <h2>1. Model comparison (spatial 10-fold cross-validation)</h2>
+  <p class="note">Every model was trained and tested on the same 50,000 buildings and the same 10 spatial folds (2 km blocks), so the scores are paired. Mean ± standard deviation over folds. Rank = mean Friedman rank (1 = best).</p>
+  <div id="tbl"></div>
+  <h3 style="font-size:14px;margin:16px 0 4px">Macro-F1 by model (bar = mean, line = ± 1 SD)</h3>
+  <div id="bars"></div>
+  <h2>2. Hypothesis testing — is the best model really better?</h2>
+  <div id="tests"></div>
+  <div class="figs" style="margin-top:12px">
+    <img src="assets/fig_boxplot_f1.png" alt="Box plot of macro-F1 per fold">
+    <img src="assets/fig_cd_diagram.png" alt="Critical difference diagram">
+    <img src="assets/fig_confusion_best.png" alt="Confusion matrix of best model">
+  </div>
+  <h2>3. Comparison with published studies</h2>
+  <table class="lit">
+    <tr><th>Study</th><th>Task / area</th><th>Validation</th><th>Best model</th><th>Reported</th></tr>
+    <tr><td>Kurugama et al., 2024 (J. Flood Risk Mgmt)</td><td>Flood susceptibility, Rathnapura, Sri Lanka (595 points)</td><td>Train/test split (not spatially blocked)</td><td>LightGBM</td><td>AUC 0.970, F1 0.907</td></tr>
+    <tr><td>Seleem et al., 2022 (Geomatics, Nat. Haz. & Risk)</td><td>Urban pluvial flood susceptibility, Berlin</td><td>Test set + transfer to new area</td><td>Random Forest (CNN transferred best)</td><td>All models AUC ≥ 0.87; transfer AUC ≥ 0.80</td></tr>
+    <tr><td><b>This work (M1)</b></td><td>Building-level flood exposure, lower Kelani, Sri Lanka (341,971 buildings)</td><td>Spatial 10-fold block CV</td><td id="litbest"></td><td id="litval"></td></tr>
+  </table>
+  <p class="note">Numbers are not directly comparable: the published studies predict susceptibility at inventory points with non-spatial splits, which are known to give optimistic scores (Ploton et al., 2020). Our AUC is for “High vs rest” at building level under spatial CV. See the report for the random-split vs spatial-split experiment.</p>
+  <h2>4. Honest limitations</h2>
+  <ul class="note" style="font-size:13px">
+    <li>Labels are <b>flood exposure</b> (distance of each building to SAR-detected flood water on 2 Dec 2025), not structural damage grades. Sentinel-2 (10 m) cannot see roof damage.</li>
+    <li>The SAR pass was ~1 day after the Kelani peak (receding flood) and SAR misses water between dense buildings (double bounce), so some exposed buildings are labelled Low.</li>
+    <li>One event and one basin: the model must be re-validated on another flood (e.g. May 2016 / 2024) before operational use. The M4 3-day forecast input is not yet integrated.</li>
+  </ul>
+</main>
+<script src="assets/data.js"></script>
+<script src="assets/deckgl.min.js"></script>
+<script>
+(function boot(){
+  if (typeof deck === 'undefined') { const s=document.createElement('script'); s.src='https://unpkg.com/deck.gl@8.9.35/dist.min.js'; s.onload=start; document.head.appendChild(s); }
+  else start();
+})();
+function start(){
+  const D = window.M1DATA, M = window.M1META, n = D.lon.length;
+  const COL = [[46,157,79],[242,169,34],[224,69,58]], NAMES = M.classes;
+  document.getElementById('gen').textContent = 'generated ' + M.generated;
+  document.getElementById('bestname').textContent = M.best;
+  const pos = new Float32Array(n*2); for (let i=0;i<n;i++){pos[2*i]=D.lon[i];pos[2*i+1]=D.lat[i];}
+  const col = new Uint8Array(n*4);
+  let mode='pred', onlyHigh=false;
+  function paint(){
+    for (let i=0;i<n;i++){
+      let c;
+      if (mode==='pred') c=COL[D.p[i]]; else if (mode==='true') c=COL[D.y[i]];
+      else if (mode==='err') c = D.p[i]===D.y[i] ? [150,160,170] : (D.p[i]<D.y[i] ? [230,60,200] : [40,200,230]);
+      else { const t=D.ph[i]/100; c=[Math.round(40+215*t), Math.round(80+40*(1-t)), Math.round(200*(1-t))]; }
+      const a = (onlyHigh && D.p[i]!==2) ? 0 : 230;
+      col[4*i]=c[0];col[4*i+1]=c[1];col[4*i+2]=c[2];col[4*i+3]=a;
+    }
+    legend(); render();
+  }
+  function legend(){
+    const L = document.getElementById('legend'); let h='';
+    if (mode==='pred'||mode==='true') NAMES.forEach((nm,k)=>h+=`<div><span style="background:rgb(${COL[k]})"></span>${nm} exposure</div>`);
+    else if (mode==='err') h='<div><span style="background:rgb(150,160,170)"></span>Correct</div><div><span style="background:rgb(230,60,200)"></span>Under-predicted (missed exposure)</div><div><span style="background:rgb(40,200,230)"></span>Over-predicted (false alarm)</div>';
+    else h='<div><span style="background:rgb(40,120,200)"></span>Low probability</div><div><span style="background:rgb(255,80,0)"></span>High probability</div>';
+    L.innerHTML=h;
+  }
+  const b = M.bounds; // [west, south, east, north]
+  const deckgl = new deck.Deck({
+    parent: document.getElementById('map'),
+    initialViewState: {longitude:(b[0]+b[2])/2, latitude:(b[1]+b[3])/2, zoom:11.2, pitch:0, bearing:0},
+    controller: true, getCursor: ({isHovering}) => isHovering ? 'pointer' : 'grab',
+    onHover: info => { const t=document.getElementById('tip'); if(info.index>=0 && info.layer && info.layer.id==='b'){ t.style.display='block'; t.style.left=(info.x+12)+'px'; t.style.top=(info.y+12)+'px'; t.innerHTML=`Pred: <b>${NAMES[D.p[info.index]]}</b><br>SAR label: ${NAMES[D.y[info.index]]}<br>P(High) ${D.ph[info.index]}%`; } else t.style.display='none'; },
+    onClick: info => { if(info.index>=0 && info.layer && info.layer.id==='b') select(info.index); }
+  });
+  function layers(){
+    const L=[];
+    if (document.getElementById('lyrS2').checked) L.push(new deck.BitmapLayer({id:'s2', image:(window.M1META.img_s2||'assets/s2_rgb.jpg'), bounds:b}));
+    if (document.getElementById('lyrFlood').checked) L.push(new deck.BitmapLayer({id:'fl', image:(window.M1META.img_flood||'assets/flood_mask.png'), bounds:b}));
+    L.push(new deck.ScatterplotLayer({id:'b', data:{length:n, attributes:{getPosition:{value:pos,size:2}, getFillColor:{value:col,size:4}}},
+      getRadius:7, radiusUnits:'meters', radiusMinPixels:1.1, radiusMaxPixels:7, pickable:true, updateTriggers:{getFillColor:[mode,onlyHigh,Math.random()]}}));
+    return L;
+  }
+  function render(){ deckgl.setProps({layers:layers()}); }
+  function select(i){
+    document.getElementById('sel').innerHTML = `<b>Prediction</b><span>${NAMES[D.p[i]]}</span><b>SAR label</b><span>${NAMES[D.y[i]]}</span>
+      <b>P(High)</b><span>${D.ph[i]}%</span><b>Distance to flood</b><span>${D.dist[i]>=9999?'> 2.5 km':D.dist[i]+' m'}</span>
+      <b>HAND</b><span>${D.hand[i]} m</span><b>Lon, Lat</b><span>${D.lon[i].toFixed(5)}, ${D.lat[i].toFixed(5)}</span>`;
+  }
+  // summary stats
+  const cp=[0,0,0], cy=[0,0,0]; let agree=0; for(let i=0;i<n;i++){cp[D.p[i]]++;cy[D.y[i]]++; if(D.p[i]===D.y[i]) agree++;}
+  document.getElementById('stats').innerHTML = `<b>Buildings</b><span>${n.toLocaleString()}</span>` +
+    NAMES.map((nm,k)=>`<b>Pred ${nm.split(' ')[0]}</b><span>${cp[k].toLocaleString()} (${(100*cp[k]/n).toFixed(1)}%)</span>`).join('') +
+    `<b>Agreement</b><span>${(100*agree/n).toFixed(1)}% with SAR label</span><b>Inference</b><span>${M.infer_ms_per_1000} ms / 1000 bldgs</span>`;
+  document.querySelectorAll('input[name=mode]').forEach(r=>r.onchange=e=>{mode=e.target.value;paint();});
+  ['lyrS2','lyrFlood'].forEach(id=>document.getElementById(id).onchange=render);
+  document.getElementById('lyrOnlyHigh').onchange=e=>{onlyHigh=e.target.checked;paint();};
+  paint(); tables(M);
+}
+function f(x,d=3){return (x===null||x===undefined||isNaN(x))?'–':Number(x).toFixed(d);}
+function tables(M){
+  const S = M.summary.slice().sort((a,b)=>b.macro_f1-a.macro_f1);
+  let h='<table><tr><th>Model</th><th>Macro-F1</th><th>SD</th><th>Balanced acc.</th><th>QWK</th><th>AUC (High)</th><th>Mean rank</th><th>Train s/fold</th><th>ms / 1000 bldgs</th></tr>';
+  S.forEach(r=>h+=`<tr class="${r.model===M.best?'best':''}"><td>${r.model}${r.model===M.best?' <span class="tag">selected</span>':''}</td><td>${f(r.macro_f1)}</td><td>${f(r.f1_sd)}</td><td>${f(r.bal_acc)}</td><td>${f(r.qwk)}</td><td>${f(r.auc_high)}</td><td>${f(r.mean_rank,2)}</td><td>${f(r.fit_s,1)}</td><td>${f(r.infer_ms_per_1000,1)}</td></tr>`);
+  document.getElementById('tbl').innerHTML = h+'</table>';
+  const mx = Math.max(...S.map(r=>r.macro_f1+r.f1_sd));
+  document.getElementById('bars').innerHTML = S.map(r=>`<div class="barrow"><span>${r.model}</span><div><div class="bar" style="width:${100*r.macro_f1/mx}%;${r.model===M.best?'background:#e0453a':''}"></div><div class="err" style="margin-left:${100*(r.macro_f1-r.f1_sd)/mx}%;width:${200*r.f1_sd/mx}%"></div></div><span>${f(r.macro_f1)}</span></div>`).join('');
+  const T = M.tests, fr = T.friedman;
+  let t = `<div class="kv"><b>Friedman test</b><span>χ² = ${f(fr.chi2,2)}, p = ${Number(fr.p).toExponential(2)} → ${fr.p<0.05?'<b>reject H0</b>: models do not perform equally':'cannot reject H0'}</span>
+     <b>Iman–Davenport F</b><span>F = ${f(fr.iman_F,2)}, p = ${Number(fr.p_iman).toExponential(2)}</span>
+     <b>Nemenyi CD (α=0.05)</b><span>${f(T.nemenyi_CD,2)} rank units</span>
+     <b>McNemar (${M.best} vs ${T.runner_up})</b><span>b = ${T.mcnemar.b}, c = ${T.mcnemar.c}, χ² = ${f(T.mcnemar.chi2,2)}, p = ${Number(T.mcnemar.p).toExponential(2)}</span></div>`;
+  t += '<table style="margin-top:10px"><tr><th>Wilcoxon: selected model vs</th><th>Mean ΔF1</th><th>Folds won</th><th>p (raw)</th><th>p (Holm)</th><th>Significant?</th></tr>';
+  T.wilcoxon.forEach(w=>t+=`<tr><td>${w.model}</td><td>${f(w.mean_diff)}</td><td>${w.wins}/10</td><td>${f(w.p_raw,4)}</td><td>${f(w.p_holm,4)}</td><td>${w['significant_0.05']?'yes':'no'}</td></tr>`);
+  document.getElementById('tests').innerHTML = t+'</table>';
+  const best = M.summary.find(r=>r.model===M.best);
+  document.getElementById('litbest').textContent = M.best;
+  document.getElementById('litval').textContent = `Macro-F1 ${f(best.macro_f1)}, AUC(High) ${f(best.auc_high)}`;
+}
+</script>
+</body>
+</html>
