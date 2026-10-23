@@ -1,0 +1,4 @@
+*.tif
+*.gpkg
+*.qgz
+models/*.joblib
