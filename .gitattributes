@@ -1,0 +1,16 @@
+# Set default behavior for all files
+* text=auto
+
+# Ensure shell scripts maintain LF line endings
+*.sh text eol=lf
+
+# Binary files
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.tif binary
+*.tiff binary
+*.ico binary
+*.joblib binary
+*.pkl binary
+*.pickle binary

@@ -6,3 +6,5 @@ lightgbm
 shap
 matplotlib
 joblib
+rasterio
+requests
