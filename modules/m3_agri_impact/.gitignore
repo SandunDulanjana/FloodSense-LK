@@ -1,4 +1,38 @@
+# ---- Big geospatial files ----
 *.tif
+*.tiff
 *.gpkg
 *.qgz
-models/*.joblib
+*.qgs
+*.shp
+*.shx
+*.dbf
+*.prj
+*.cpg
+
+# ---- Trained models ----
+*.joblib
+*.pkl
+*.pickle
+models/*.*
+!models/.gitkeep
+
+# ---- Generated results (keep only the empty-folder markers) ----
+outputs/**/*.*
+!outputs/**/.gitkeep
+
+# ---- Web app: built data (tiles, summary.json) is rebuilt by src/m3_export_web.py ----
+web/data/
+
+# ---- Python ----
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.venv/
+venv/
+
+# ---- Secrets and system files ----
+.env
+*.key
+.DS_Store
+Thumbs.db

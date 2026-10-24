@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agricultural and Livelihood Impact Assessment</title>
+<link rel="stylesheet" href="vendor/leaflet/leaflet.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header id="top">
+  <div class="brand">
+    <span class="brand-mark" aria-hidden="true"></span>
+    <div>
+      <h1>Agricultural and Livelihood Impact Assessment</h1>
+      <p>FloodSense-LK, module M3 &middot; Ratnapura, Colombo, Gampaha &middot; Cyclone Ditwah, Nov&ndash;Dec 2025</p>
+    </div>
+  </div>
+  <nav id="tabs" role="tablist">
+    <button role="tab" data-tab="map" class="on">Map</button>
+    <button role="tab" data-tab="areas">Areas &amp; damage</button>
+    <button role="tab" data-tab="validation">Validation</button>
+    <button role="tab" data-tab="xai">Explainable AI</button>
+    <button role="tab" data-tab="about">Method &amp; limits</button>
+  </nav>
+</header>
+
+<main>
+  <section id="tab-map" class="tab on">
+    <div id="map"></div>
+    <aside id="panel" class="card">
+      <button id="panel-toggle" aria-label="Show or hide the panel">Layers</button>
+      <div id="panel-body">
+        <label class="lbl" for="district">District</label>
+        <select id="district"></select>
+        <div class="lbl">Map layers</div>
+        <div id="layers"></div>
+        <label class="lbl" for="opacity">Layer opacity</label>
+        <input id="opacity" type="range" min="0.2" max="1" step="0.05" value="0.85">
+        <div class="lbl">Basemap</div>
+        <div class="seg" id="basemap">
+          <button data-b="osm" class="on">Streets</button>
+          <button data-b="sat">Satellite</button>
+        </div>
+        <div class="lbl">Legend</div>
+        <div id="legend"></div>
+        <p class="hint">Grey or empty means not classified: forest, built-up land, water, roads and other non-crop land.</p>
+      </div>
+    </aside>
+    <aside id="stats" class="card"></aside>
+  </section>
+
+  <section id="tab-areas" class="tab"><div class="page" id="areas-page"></div></section>
+  <section id="tab-validation" class="tab"><div class="page" id="validation-page"></div></section>
+  <section id="tab-xai" class="tab"><div class="page" id="xai-page"></div></section>
+  <section id="tab-about" class="tab"><div class="page" id="about-page"></div></section>
+</main>
+
+<div id="lightbox" hidden><button aria-label="Close">&times;</button><img alt=""><p></p></div>
+<div id="error" hidden></div>
+
+<script src="vendor/leaflet/leaflet.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
