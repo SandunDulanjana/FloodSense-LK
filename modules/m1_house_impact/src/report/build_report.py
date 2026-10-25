@@ -11,6 +11,7 @@ from reportlab.lib.enums import TA_CENTER
 HERE = os.path.dirname(os.path.abspath(__file__))
 R = json.load(open(os.path.join(HERE, 'results.json')))
 FIG = os.path.join(HERE, 'figs')
+OPTF = os.path.join(HERE, 'opt.json'); OPT = json.load(open(OPTF)) if os.path.exists(OPTF) else None   # Step 12 results
 OUT = sys.argv[1] if len(sys.argv) > 1 else os.path.join(HERE, 'M1_Research_Report.pdf')
 
 ss = getSampleStyleSheet()
@@ -65,7 +66,7 @@ S += [Spacer(1, 2.2 * cm),
       Spacer(1, 18),
       P('Project J26-DS-360 · AI-Powered Flood Disaster Impact Assessment and Decision Support System for Sri Lanka<br/>'
         'J.A.S. Dulanjana (IT23401112) · BSc (Hons) IT, Data Science · SLIIT<br/>Supervisor: Mr. Jeewaka Perera · Co-supervisor: Mr. Chamidu Rathsara<br/>'
-        f'Report generated: {R["generated"]} · All numbers in this report come from real runs in Google Colab (notebook M1_Research_Main.ipynb).',
+        f'Report generated: {R["generated"]}' + (f' · updated {OPT["generated"][:10]} with Step 12 (model optimisation)' if OPT else '') + ' · All numbers in this report come from real runs in Google Colab (notebook M1_Research_Main.ipynb).',
         ParagraphStyle('c', parent=B, alignment=TA_CENTER)),
       Spacer(1, 20)]
 S += [P('<b>One-paragraph summary.</b> Using free satellite data in Google Earth Engine, we built a building-level dataset for '
@@ -75,7 +76,13 @@ S += [P('<b>One-paragraph summary.</b> Using free satellite data in Google Earth
         'classic machine learning and deep learning, with and without pre-training, including the proposal\'s Dual-Stream ResNet baseline '
         'and a first prototype of the proposed HSC-Attention model — under the same 10-fold <b>spatial</b> cross-validation. '
         f'A Friedman test showed the models do not perform equally (p = {pe(R["friedman"]["p"])}). The selected model is <b>{best}</b> '
-        f'(macro-F1 {bs["macro_f1"]:.3f} ± {bs["f1_sd"]:.3f}). An interactive local web demo shows predictions for every building.', BOX),
+        f'(macro-F1 {bs["macro_f1"]:.3f} ± {bs["f1_sd"]:.3f}). '
+        + (f'We then <b>optimised</b> the architecture and training settings of HSC-Attention and of Baseline 1 with nested spatial cross-validation '
+           f'(Section 9): optimised HSC-Attention reached macro-F1 {OPT["summary"]["D6_tuned"]["macro_f1_mean"]:.3f} ± {OPT["summary"]["D6_tuned"]["macro_f1_std"]:.3f} '
+           f'(default {OPT["summary"]["D6_default"]["macro_f1_mean"]:.3f}; gain not significant after Holm correction). Under the same optimisation budget, '
+           f'HSC-Attention beat the Dual-Stream baseline in 10 of 10 folds (Holm p = {OPT["wilcoxon"][2]["p_holm"]:.3f}), and ablations show that cross-attention, '
+           'the DEM-derived terrain bands and the terrain stream each contribute significantly. ' if OPT else '')
+        + 'An interactive local web demo shows predictions for every building.', BOX),
       P('<b>Honesty note for the panel.</b> These are measured results, not the proposal targets. The task was adapted from "damage grade" to '
         '"flood exposure" because no building-damage labels exist for Sri Lanka and Sentinel-2 (10 m) cannot see roof damage. '
         'Damage-percentage regression (MAE) and segmentation IoU are therefore <b>not</b> reported, because valid ground truth does not exist for them.', WARN),
@@ -101,6 +108,11 @@ wf = [['#', 'Step', 'What we did / will do (simple words)', 'Status'],
       ['13', 'Second event', 'Validate on another flood (May 2016 Kelani / June 2024) to test transferability over time.', 'NEXT'],
       ['14', 'Damage track', 'Train damage-grade model on xBD flood events (Florence, Harvey, Midwest) for the 4 damage classes.', 'NEXT'],
       ['15', 'Full HSC-Attention', 'Tune and run ablations (No-DEM, No-Cross-Attention) with forecast input; dashboard export (GeoJSON).', 'NEXT']]
+if OPT:
+    wf.insert(12, ['12', 'Model optimisation', 'Nested spatial-CV search (Optuna TPE) over HSC-Attention architecture (layers, heads, width, token grid, activation, '
+                   'attention direction, initialisation) and training settings; same budget for Baseline 1; ablations No-DEM, No-Cross-Attention, Visual-only (Section 9).', 'DONE'])
+    for i, r in enumerate(wf[13:], start=13): r[0] = str(i)
+    wf[-1][2] = 'Repeat optimisation with the M4 forecast input; dashboard export (GeoJSON).'
 S += [table(wf, [0.7 * cm, 2.8 * cm, 11.3 * cm, 1.6 * cm]), PageBreak()]
 
 # ---------- 2. Problem & key ideas ----------
@@ -223,7 +235,7 @@ S += [P('5. Experimental design', H1),
                'Deep models: 6 epochs, batch 256, AdamW (weight decay 1e-4), one-cycle learning-rate schedule, mixed precision, flips + 90° rotations augmentation; '
                'patches upsampled 32→64 px for ResNets; per-fold band normalisation computed from training blocks only (no leakage).',
                'Tabular: 14 features (S2 bands B2,B3,B4,B8,B11, NDVI, NDWI, DEM, slope, HAND, distance to river, building density within 100 m, land cover, footprint area).',
-               'No hyper-parameter tuning on the test folds. Fixed reasonable defaults were used for every model so that the comparison is fair (tuning is future work with nested CV).']),
+               'No hyper-parameter tuning on the test folds. Fixed reasonable defaults were used for every model so that the comparison is fair' + (' — Section 9 then optimises D6 and Baseline 1 with nested spatial CV.' if OPT else ' (tuning is future work with nested CV).')]),
       P('5.4 Metrics', H2),
       table([['Metric', 'Meaning (simple)', 'Why'],
              ['Macro-F1 (primary)', 'Average of F1 for Low, Medium, High (each class counts equally)', 'Fair under imbalance; proposal metric'],
@@ -302,14 +314,20 @@ S += [P('<b>Pairwise Wilcoxon signed-rank tests</b> (one-sided H1: selected mode
             [[c['model'], f"{c['pooled_macro_f1']:.3f}", f"{c['ci_low']:.3f} – {c['ci_high']:.3f}"] for c in R['bootstrap_ci']], [5.5 * cm, 3.5 * cm, 5 * cm]),
       P('<b>Decision.</b> ' + R['decision_text'], BOX), PageBreak()]
 
-# ---------- 9. Literature ----------
-S += [P('9. Comparison with published research', H1),
+# ---------- 9. Model optimisation (Step 12) ----------
+if OPT:
+    import opt_section
+    S += opt_section.build(OPT, dict(P=P, table=table, fig=fig, bullets=bullets, cm=cm, H1=H1, H2=H2, B=B, SM=SM, BOX=BOX), FIG) + [PageBreak()]
+
+# ---------- 10. Literature ----------
+S += [P('10. Comparison with published research', H1),
       table([['Study', 'Task / data', 'Validation', 'Best model', 'Reported result'],
              ['Kurugama et al. (2024), J. Flood Risk Management, doi:10.1111/jfr3.12980', 'Flood susceptibility, Rathnapura (Sri Lanka); 595 inventory points, 13 factors', 'Train/test split (not spatially blocked)', 'LightGBM (vs GBM, XGBoost, CatBoost, LogitBoost)', 'AUC 0.970, F1 0.907, κ 0.813'],
              ['Seleem et al. (2022), Geomatics, Natural Hazards & Risk 13(1)', 'Urban pluvial flood susceptibility, Berlin; CNN, ANN, RF, SVM; 2–30 m', 'Test set + transfer to another area', 'Random Forest; CNN transferred best', 'All AUC ≥ 0.87; transfer AUC ≥ 0.80'],
              ['Gupta et al. (2019), CVPR-W (xBD)', 'Building damage (4 classes) from pre+post 0.5 m imagery', 'Official split', 'Baseline CNN', 'Different task (post-event damage)'],
              ['<b>This work (M1)</b>', 'Building-level flood exposure, lower Kelani; 341,971 buildings; pre-flood inputs only', 'Spatial 10-fold block CV + hypothesis tests',
-              best, f"Macro-F1 {bs['macro_f1']:.3f}; AUC(High) {bs['auc_high']:.3f}"]],
+              best + (' / D6 optimised (Sec. 9)' if OPT else ''), f"Macro-F1 {bs['macro_f1']:.3f}; AUC(High) {bs['auc_high']:.3f}"
+              + (f" · optimised: {OPT['summary']['D6_tuned']['macro_f1_mean']:.3f}; {OPT['summary']['D6_tuned']['auc_high_mean']:.3f}" if OPT else '')]],
             [3.6 * cm, 4.2 * cm, 2.9 * cm, 2.8 * cm, 2.9 * cm]),
       P('<b>How to read this comparison.</b> ' + R['lit_text']),
       P('The proposal\'s targets (macro-F1 ≥ 0.78, MAE ≤ 12 %, IoU ≥ 0.75) were set for a damage-grade task. They are <b>not met and not directly applicable</b> to the '
@@ -317,12 +335,16 @@ S += [P('9. Comparison with published research', H1),
 
 # ---------- 10. Demo ----------
 FN = R['final']
-S += [P('10. Final model and local web demo', H1),
+S += [P('11. Final model and local web demo', H1),
       P(f"The selected model ({best}) was re-trained on all 50,000 sample buildings and then applied to all {R['n_buildings']:,} buildings in "
         f"{FN['infer_s']:.1f} s ({FN['ms_per_1000']:.1f} ms per 1,000 buildings). On the {FN['n_unseen']:,} buildings that were never in the 50,000-building sample, "
         f"agreement with the SAR-derived class is macro-F1 {FN['f1_unseen']:.3f} (note: these buildings share neighbourhoods with training buildings, so this is not a spatial test). "
         f"Predicted classes (Low / Medium / High): {FN['pred_counts'][0]:,} / {FN['pred_counts'][1]:,} / {FN['pred_counts'][2]:,}; SAR-derived: "
         f"{FN['sar_counts'][0]:,} / {FN['sar_counts'][1]:,} / {FN['sar_counts'][2]:,}."),
+      *([P(f"<b>Updated after optimisation (Step 12):</b> the demo now uses the optimised model {OPT['final_rec']['model']} with settings chosen by the same nested procedure on the "
+           f"whole sample, re-trained on all 50,000 buildings. It predicted {OPT['final_rec']['n']:,} buildings in {OPT['final_rec']['infer_s']:.1f} s "
+           f"({OPT['final_rec']['ms_per_1000']:.1f} ms per 1,000); macro-F1 on non-sample buildings {OPT['final_rec']['unseen_f1']:.3f}. Predicted Low / Medium / High: "
+           f"{OPT['final_rec']['pred_counts'][0]:,} / {OPT['final_rec']['pred_counts'][1]:,} / {OPT['final_rec']['pred_counts'][2]:,}.", BOX)] if OPT and OPT.get('final_rec') else []),
       P('The folder <b>M1_demo</b> contains <b>index.html</b>, <b>run_demo.bat</b> and an <b>assets</b> folder. It works offline.'),
       bullets(['Option A: double-click <b>index.html</b> (Chrome or Edge).',
                'Option B (local web server): double-click <b>run_demo.bat</b> → it runs <font face="Courier">python -m http.server 8000</font> and opens http://localhost:8000.',
@@ -334,43 +356,55 @@ S += [P('10. Final model and local web demo', H1),
         '(4) scroll to the comparison table and Friedman/Wilcoxon results; (5) end with limitations and next steps.', BOX)]
 
 # ---------- 11. Limitations ----------
-S += [P('11. Limitations and threats to validity', H1),
+S += [P('12. Limitations and threats to validity', H1),
       bullets(['<b>Label proxy:</b> exposure (distance to SAR water), not damage. No damage percentages exist, so MAE is not measurable.',
                '<b>Timing:</b> the 2 Dec SAR image is ~1 day after the Kelani peak; true exposure was larger, so some exposed buildings are labelled Low (label noise, biased towards under-labelling High).',
                '<b>Urban SAR blindness:</b> double-bounce hides water between dense buildings (1.47 % of buildings showed strong VV brightening).',
                '<b>One event, one basin:</b> results may not transfer to other floods or rivers without re-validation.',
                '<b>Resolution:</b> Sentinel-2 10 m cannot see individual roofs; SRTM 30 m DEM has metre-level vertical errors in towns.',
                '<b>No M4 forecast yet:</b> the forecast flood probability, the key input of the proposed HSC-Attention design, is not yet available; the D6 prototype uses terrain only.',
-               '<b>Fixed hyper-parameters:</b> no tuning was done (to keep the comparison fair and avoid test-set tuning); deep models trained only 6 epochs on a free GPU.',
+               ('<b>Optimisation budget:</b> only ' + (f"{OPT['n_trials']['D6']} (D6) / {OPT['n_trials']['D5']} (D5)" if OPT else '') + ' trials per outer fold on a 50 % inner subsample (free GPU); a larger budget might find better settings. Tabular models and D1–D4 were not tuned.' if OPT else '<b>Fixed hyper-parameters:</b> no tuning was done (to keep the comparison fair and avoid test-set tuning); deep models trained only 6 epochs on a free GPU.'),
                '<b>Sample:</b> models were compared on 50,000 of 341,971 buildings; the final model predicts all buildings.'])]
 
 # ---------- 12. Next steps ----------
-S += [P('12. Next steps after Progress 01', H1),
+S += [P('13. Next steps after Progress 01', H1),
       table([['Priority', 'Task', 'Expected output'],
              ['1', 'Get M4 3-day flood probability raster for Ditwah (or simulate with HAND-based inundation for prototype)', 'Hydro stream with forecast input → true "predictive" HSC-Attention'],
              ['2', 'Second event (May 2016 Kelani / June 2024)', 'Temporal transfer test: train Ditwah, test other flood'],
-             ['3', 'Nested CV hyper-parameter tuning for best tabular and best deep model', 'Fair tuned comparison'],
-             ['4', 'Ablations on HSC-Attention (No-DEM, No-HAND, concat vs attention, heads)', 'Evidence for each design choice'],
+             (['3', 'Larger optimisation budget (more trials, full inner data) and tuning of the best tabular model', 'Tighter, fully fair comparison'] if OPT else
+              ['3', 'Nested CV hyper-parameter tuning for best tabular and best deep model', 'Fair tuned comparison']),
+             (['4', 'Repeat the ablations once the M4 forecast input is added (No-Forecast ablation)', 'Evidence that forecast fusion helps'] if OPT else
+              ['4', 'Ablations on HSC-Attention (No-DEM, No-HAND, concat vs attention, heads)', 'Evidence for each design choice']),
              ['5', 'xBD flood events damage-grade track', '4-class damage model (supports the proposal\'s damage objective)'],
              ['6', 'Validate labels with Copernicus EMS EMSR851 / UNOSAT delineations', 'Independent label quality check'],
              ['7', 'GeoJSON export + dashboard integration with M2–M4', 'System integration (FR-1.6, FR-1.7)']],
             [1.6 * cm, 8.6 * cm, 6.2 * cm]), PageBreak()]
 
 # ---------- 13. Viva Q&A ----------
-qa = R['viva']
-S += [P('13. Likely panel questions and answers', H1)]
+qa = list(R['viva'])
+if OPT:
+    import opt_section as _o
+    qa.append(('What is your algorithmic contribution, and is the improvement real?',
+               'The HSC-Attention architecture (cross-attention depth, heads, width, token grid, activation, attention direction, initialisation) and its training '
+               'settings were optimised with Optuna TPE inside nested spatial cross-validation, so test folds were never used for choosing. Baseline 1 got the same budget. '
+               + _o.interpretation(OPT).replace('<b>', '').replace('</b>', '')))
+    qa.append(('Why not just tune on the test folds, it is faster?', 'Because the reported score would then be optimistically biased (selection bias). '
+               'Our own numbers show it: the inner-validation gain was larger than the outer-test gain.'))
+S += [P('14. Likely panel questions and answers', H1)]
 for q, a in qa:
     S += [P(f'<b>Q: {q}</b>', B), P('A: ' + a, B)]
 S += [PageBreak()]
 
 # ---------- 14. Reproducibility ----------
-S += [P('14. Reproducibility record', H1),
+S += [P('15. Reproducibility record', H1),
       table([['Item', 'Value'],
              ['Notebook', 'Google Drive: M1_Research_Main.ipynb (steps 6–10); Untitled21.ipynb (steps 2–5, GEE exploration)'],
              ['GEE project', 'sliit-research-2026'],
              ['GEE export task IDs', 'Raster stack 3QTMHS34SYPVPNRMMOU36N3B · Label raster W2FKP3R7YTK2VFCLBNQC4E24 · Building points GT56UEQQHY3FCCRN2RE4HGR5'],
              ['Data files (Drive/M1_Research)', 'M1_raster_stack_v1.tif, M1_label_raster_v2.tif, M1_building_points_v2.csv, M1_buildings_dataset_v2.parquet, M1_sample_with_folds.parquet'],
              ['Results (Drive/M1_Research/results)', 'cv_tabular.csv, cv_deep.csv, oof_*.npz, hypothesis_tests.json, model_summary.csv, nemenyi_pvalues.csv, figures/, predictions_all_buildings.parquet'],
+             *([['Step 12 optimisation', 'step12_optimise.py; results/tuning/: outer_results.csv, best_params.json, trials_*.csv, D*_outer*.db (Optuna), '
+                 'optimisation_summary.json, final_config.json, final_model_record.json; results/final_model_optimised.pt; step12_log.txt']] if OPT else []),
              ['Random seed', '42 (sample, folds, models); fold k uses seed 42+k for deep models'],
              ['Software', R.get('software', 'Python 3.13, PyTorch, scikit-learn 1.6.1, XGBoost 3.4.1, LightGBM 4.6.0, torchgeo, scikit-posthocs')],
              ['Hardware', 'Google Colab free tier, NVIDIA Tesla T4 (15 GB)']],
@@ -387,6 +421,14 @@ refs = ['Demšar, J. (2006). Statistical comparisons of classifiers over multipl
         'Vaswani, A. et al. (2017). Attention is all you need. NeurIPS.',
         'Breiman, L. (2001). Random forests. Machine Learning, 45, 5–32.  ·  Chen, T., Guestrin, C. (2016). XGBoost. KDD.  ·  Ke, G. et al. (2017). LightGBM. NeurIPS.',
         'Dietterich, T. G. (1998). Approximate statistical tests for comparing supervised classification learning algorithms. Neural Computation, 10(7), 1895–1923.',
+        *(['Akiba, T., Sano, S., Yanase, T., Ohta, T., Koyama, M. (2019). Optuna: A next-generation hyperparameter optimization framework. KDD.',
+            'Bergstra, J., Bardenet, R., Bengio, Y., Kégl, B. (2011). Algorithms for hyper-parameter optimization. NeurIPS 24.',
+            'Bergstra, J., Bengio, Y. (2012). Random search for hyper-parameter optimization. Journal of Machine Learning Research, 13, 281–305.',
+            'Cawley, G. C., Talbot, N. L. C. (2010). On over-fitting in model selection and subsequent selection bias in performance evaluation. JMLR, 11, 2079–2107.',
+            'Varma, S., Simon, R. (2006). Bias in error estimation when using cross-validation for model selection. BMC Bioinformatics, 7, 91.',
+            'Hutter, F., Hoos, H., Leyton-Brown, K. (2014). An efficient approach for assessing hyperparameter importance. ICML.',
+            'Hendrycks, D., Gimpel, K. (2016). Gaussian error linear units (GELUs). arXiv:1606.08415.',
+            'Elfwing, S., Uchibe, E., Doya, K. (2018). Sigmoid-weighted linear units for neural network function approximation in reinforcement learning. Neural Networks, 107, 3–11.'] if OPT else []),
         'Copernicus EMS (2025). EMSR851 — Flood in Sri Lanka (Tropical Cyclone Ditwah). mapping.emergency.copernicus.eu',
         'Ada Derana (2 Dec 2025). Water level of Kelani River dropped to minor flood level; Newsfirst (1 Dec 2025). Kelani River at 8.45 feet.',
         'Google Earth Engine data catalog: Sentinel-1 GRD, Sentinel-2 SR Harmonized, Cloud Score+, Open Buildings v3, SRTM, MERIT Hydro, JRC GSW 1.4, ESA WorldCover v200.']

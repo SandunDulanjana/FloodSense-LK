@@ -68,6 +68,11 @@
     <img src="assets/fig_cd_diagram.png" alt="Critical difference diagram">
     <img src="assets/fig_confusion_best.png" alt="Confusion matrix of best model">
   </div>
+  <div id="optsec" style="display:none">
+  <h2>2b. Model optimisation (nested spatial CV) and ablations</h2>
+  <p class="note">HSC-Attention (D6) and Baseline 1 (D5) were optimised with Optuna TPE inside nested spatial cross-validation: settings were chosen on inner validation blocks only, then tested once on each untouched outer fold. Ablations remove one component from the optimised D6.</p>
+  <div id="opttbl"></div><div id="opttests" style="margin-top:10px"></div><div id="optcfg" class="note" style="margin-top:8px"></div>
+  </div>
   <h2>3. Comparison with published studies</h2>
   <table class="lit">
     <tr><th>Study</th><th>Task / area</th><th>Validation</th><th>Best model</th><th>Reported</th></tr>
@@ -150,23 +155,36 @@ function start(){
 }
 function f(x,d=3){return (x===null||x===undefined||isNaN(x))?'–':Number(x).toFixed(d);}
 function tables(M){
+  const SEL = M.summary.some(r=>r.model===M.best) ? M.best : (M.summary.some(r=>r.model==='D6_HSC_Attention') ? 'D6_HSC_Attention' : M.summary[0].model);
   const S = M.summary.slice().sort((a,b)=>b.macro_f1-a.macro_f1);
   let h='<table><tr><th>Model</th><th>Macro-F1</th><th>SD</th><th>Balanced acc.</th><th>QWK</th><th>AUC (High)</th><th>Mean rank</th><th>Train s/fold</th><th>ms / 1000 bldgs</th></tr>';
-  S.forEach(r=>h+=`<tr class="${r.model===M.best?'best':''}"><td>${r.model}${r.model===M.best?' <span class="tag">selected</span>':''}</td><td>${f(r.macro_f1)}</td><td>${f(r.f1_sd)}</td><td>${f(r.bal_acc)}</td><td>${f(r.qwk)}</td><td>${f(r.auc_high)}</td><td>${f(r.mean_rank,2)}</td><td>${f(r.fit_s,1)}</td><td>${f(r.infer_ms_per_1000,1)}</td></tr>`);
+  S.forEach(r=>h+=`<tr class="${r.model===SEL?'best':''}"><td>${r.model}${r.model===SEL?' <span class="tag">selected</span>':''}</td><td>${f(r.macro_f1)}</td><td>${f(r.f1_sd)}</td><td>${f(r.bal_acc)}</td><td>${f(r.qwk)}</td><td>${f(r.auc_high)}</td><td>${f(r.mean_rank,2)}</td><td>${f(r.fit_s,1)}</td><td>${f(r.infer_ms_per_1000,1)}</td></tr>`);
   document.getElementById('tbl').innerHTML = h+'</table>';
   const mx = Math.max(...S.map(r=>r.macro_f1+r.f1_sd));
-  document.getElementById('bars').innerHTML = S.map(r=>`<div class="barrow"><span>${r.model}</span><div><div class="bar" style="width:${100*r.macro_f1/mx}%;${r.model===M.best?'background:#e0453a':''}"></div><div class="err" style="margin-left:${100*(r.macro_f1-r.f1_sd)/mx}%;width:${200*r.f1_sd/mx}%"></div></div><span>${f(r.macro_f1)}</span></div>`).join('');
+  document.getElementById('bars').innerHTML = S.map(r=>`<div class="barrow"><span>${r.model}</span><div><div class="bar" style="width:${100*r.macro_f1/mx}%;${r.model===SEL?'background:#e0453a':''}"></div><div class="err" style="margin-left:${100*(r.macro_f1-r.f1_sd)/mx}%;width:${200*r.f1_sd/mx}%"></div></div><span>${f(r.macro_f1)}</span></div>`).join('');
   const T = M.tests, fr = T.friedman;
   let t = `<div class="kv"><b>Friedman test</b><span>χ² = ${f(fr.chi2,2)}, p = ${Number(fr.p).toExponential(2)} → ${fr.p<0.05?'<b>reject H0</b>: models do not perform equally':'cannot reject H0'}</span>
      <b>Iman–Davenport F</b><span>F = ${f(fr.iman_F,2)}, p = ${Number(fr.p_iman).toExponential(2)}</span>
      <b>Nemenyi CD (α=0.05)</b><span>${f(T.nemenyi_CD,2)} rank units</span>
-     <b>McNemar (${M.best} vs ${T.runner_up})</b><span>b = ${T.mcnemar.b}, c = ${T.mcnemar.c}, χ² = ${f(T.mcnemar.chi2,2)}, p = ${Number(T.mcnemar.p).toExponential(2)}</span></div>`;
+     <b>McNemar (${SEL} vs ${T.runner_up})</b><span>b = ${T.mcnemar.b}, c = ${T.mcnemar.c}, χ² = ${f(T.mcnemar.chi2,2)}, p = ${Number(T.mcnemar.p).toExponential(2)}</span></div>`;
   t += '<table style="margin-top:10px"><tr><th>Wilcoxon: selected model vs</th><th>Mean ΔF1</th><th>Folds won</th><th>p (raw)</th><th>p (Holm)</th><th>Significant?</th></tr>';
   T.wilcoxon.forEach(w=>t+=`<tr><td>${w.model}</td><td>${f(w.mean_diff)}</td><td>${w.wins}/10</td><td>${f(w.p_raw,4)}</td><td>${f(w.p_holm,4)}</td><td>${w['significant_0.05']?'yes':'no'}</td></tr>`);
   document.getElementById('tests').innerHTML = t+'</table>';
-  const best = M.summary.find(r=>r.model===M.best);
-  document.getElementById('litbest').textContent = M.best;
+  const best = M.summary.find(r=>r.model===SEL);
+  document.getElementById('litbest').textContent = SEL;
   document.getElementById('litval').textContent = `Macro-F1 ${f(best.macro_f1)}, AUC(High) ${f(best.auc_high)}`;
+  const O = M.optimisation;
+  if (O && O.rows && O.rows.length) {
+    document.getElementById('optsec').style.display = '';
+    const R = O.rows.slice().sort((a,b)=>b.macro_f1_mean-a.macro_f1_mean);
+    let h = '<table><tr><th>Model (outer spatial 10-fold CV)</th><th>Macro-F1</th><th>SD</th><th>AUC (High)</th></tr>';
+    R.forEach(r=>h+=`<tr class="${r.model==='D6_tuned'?'best':''}"><td>${r.model}</td><td>${f(r.macro_f1_mean)}</td><td>${f(r.macro_f1_std)}</td><td>${f(r.auc_high_mean)}</td></tr>`);
+    document.getElementById('opttbl').innerHTML = h + '</table>';
+    let t = '<table><tr><th>Planned comparison (Wilcoxon, Holm)</th><th>Mean ΔF1</th><th>Folds won</th><th>p (raw)</th><th>p (Holm)</th><th>Significant?</th></tr>';
+    (O.wilcoxon||[]).forEach(w=>t+=`<tr><td>${w.a} vs ${w.b}</td><td>${f(w.mean_diff)}</td><td>${w.wins}/10</td><td>${f(w.p,4)}</td><td>${f(w.p_holm,4)}</td><td>${w['significant_0.05']?'yes':'no'}</td></tr>`);
+    document.getElementById('opttests').innerHTML = t + '</table>';
+    if (O.final_cfg) document.getElementById('optcfg').textContent = 'Map model settings (chosen by the same nested procedure on the whole sample): ' + JSON.stringify(O.final_cfg);
+  }
 }
 </script>
 </body>
